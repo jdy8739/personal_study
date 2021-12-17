@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Input_layout</title>
+</head>
+<body>
+    <div class="container">
+        <h3 class="title">contact us</h3>
+        <form>
+            <div>
+                <p class="desc">Your Email</p>
+                <input type="email" placeholder="email@exanmple.com">
+            </div>
+            <div>
+                <div class="box">
+                    <p class="desc">First name</p>
+                    <input type="text">
+                </div>
+                <div class="box" style="float: right;">
+                    <p class="desc">Last name</p>
+                    <input type="text">
+                </div>
+            </div>
+            <div>
+                <p class="desc">Message</p>
+                <textarea rows="6"></textarea>
+            </div>
+            <div style="margin-top: 10px;">
+                <input id="sub" type="checkbox">
+                <label for="sub">Subscribe</label> <!-- label for는 같은 이름의 input id와 상호작용한다.-->
+                <button type="submit">SEND</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

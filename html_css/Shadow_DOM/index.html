@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow_DOM</title>
+</head>
+<body>
+    <div class="container">
+        <input type="file">
+        <br>
+        <progress value="0.9"> </progress>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        margin: 0px;
+        background-color: burlywood;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+        appearance: none;
+        background-color: coral;
+        color: cadetblue;
+        padding: 40px 25px 40px 25px;
+        border-radius: 50%;
+    }
+
+    progress {
+        appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+        background-color: cyan;
+    }
+
+    progress::-webkit-progress-value {
+        background: linear-gradient(to right, blue, pink);
+    }    
+</style>

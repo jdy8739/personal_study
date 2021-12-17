@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+.flip_outer {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    margin-top: 200px;
+    position: relative;
+    transition: all 1s;
+    transform-style: preserve-3d;
+}
+
+.flip_outer:hover {
+    transform: rotateY(180deg);
+}
+
+img {
+    width: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.back {
+    position: absolute;
+    text-align: center;
+    transform: rotateY(180deg);
+    background-color: cornflowerblue;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.back p {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}

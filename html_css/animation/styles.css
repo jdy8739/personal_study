@@ -1,0 +1,122 @@
+.box {
+    padding-top: 100px;
+    font-weight: bolder;   
+    text-align: center;
+    transform : rotate(10deg) translateX(30px);
+}
+
+button {
+    margin-top: 100px;
+    padding: 15px;
+    background-color: skyblue;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+button:hover {
+    animation-name: swingBtn;
+    animation-duration: 1s;
+}
+
+i {
+    transform: rotate(45deg);
+}
+
+body {
+    margin: 0;
+}
+
+i:hover {
+    animation-name: swingCross;
+    animation-duration: 1s;
+}
+
+html {
+    height: 100%;
+}
+
+.nav_bar {
+    width: 20%;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+    top: 0px;
+    transform: translateX(-50%);
+    transition: all 1s;
+    color: white;
+    text-align: center;
+}
+
+.nav_box:hover .nav_bar {
+    transform: translateX(0%);
+}
+
+.menu {
+    transform: translateX(25%);
+    transition: all 1s;
+}
+
+.nav_box:hover .menu {
+    transform: translateX(0%);
+}
+
+.item {
+    /* transform: translateX(-200%); */
+    margin-right: 50px;
+}
+
+.nav_box:hover .item {
+    animation-name: move_item;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    margin-right: 0px;
+}
+
+
+@keyframes swingBtn {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    75% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes swingCross {
+    0% {
+        transform: rotate(45deg);
+    }
+    20% {
+        transform: rotate(25deg);
+    }
+    70% {
+        transform: rotate(85deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+@keyframes move_item {
+    0% {
+        transform: translateX(-200%);
+    }
+
+    33% {
+        transform: translateX(35%) skew(-50deg);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}

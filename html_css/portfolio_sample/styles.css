@@ -1,0 +1,230 @@
+body, h4 {
+    margin: 0px;
+}
+
+h4 {
+    font-size: 25px;
+}
+
+i {
+    background-color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    color: rgb(57, 79, 179);
+    box-sizing: border-box;
+    padding-top: 20px;
+}
+
+.semi_small_text {
+    margin: 10px 0px 0px 0px;
+}
+
+.small_text {
+    font-size: 12px;
+    margin: 7px 0px 0px 0px;
+}
+
+.i_container {
+    display: flex;
+    width: 900px;
+    margin: 0px auto 0px auto;
+}
+
+.i_container>div {
+    padding: 0px 40px 40px 40px;
+}
+
+button {
+    background-color: rgb(66, 66, 66);
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: tomato;
+    border: 1px solid rgb(228, 50, 133);
+}
+
+.color_bg {
+    background: linear-gradient(#6fa4f5, #5f55e2);
+    position: relative;
+    padding: 1px;
+    height: 450px;
+}
+
+.color_bg>div {
+    width: 75%;
+    max-width: 1500px;
+    height: 100%;
+    padding-top: 70px;
+    margin: auto;
+}
+
+.letter_box {
+    /* margin-top: 50px;
+    margin-left: 180px; */
+    color: white;
+    width: 35%;
+    float: left;
+}
+
+.iphone_pic {
+    width: 350px;
+    /* position: absolute; */
+    /* bottom: 0%;
+    right: 8%;
+    margin: 0px auto 0px auto; */
+    float: right;
+}
+
+.letter_box2 {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.bold_text {
+    font-weight: bolder;
+}
+
+.second_bg {
+    background-color: rgb(57, 79, 179);
+    width: 100%;
+    height: 320px;
+    color: white;
+    text-align: center;
+    padding: 1px;
+}
+
+.second_bg>div {
+    margin-top: 50px;
+}
+
+.last_div {
+    text-align: center;
+    height: 850px;
+}
+
+.no_margin {
+    margin: 0px;
+}
+
+.pic_box {
+    max-width: 1400px;
+    width: 70%;
+    display: flex;
+    margin: 30px auto 0px auto;
+    flex-wrap: wrap;
+}
+
+.pic_box>div {
+    width: 50%;
+    position: relative;
+    height: 350px;
+    /* background-size: cover; */
+    /* background-image 사용시 가능 */
+}
+
+.pic_box>div>div {
+    color: white;
+    position: absolute;
+    top: 40px;
+    left: 70px;
+    text-align: left;
+    max-width: 75%;
+    z-index: 1;
+}
+
+.pic_box img {
+    width: 100%;
+    display: block; /* 사진 사이 미세 틈 제거 */
+    height: 350px;
+}
+
+.overlay_effect {
+    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 1s;
+    left: 0%;
+}
+
+.overlay_effect:hover {
+    border: 30px solid white;
+}
+
+.footer {
+    text-align: center;
+    width: 100%;
+    margin: 0px;
+    height: 200px;
+}
+
+.footer>i {
+    background-color: rgb(57, 79, 179);
+    color: white;
+    margin: 20px;
+    width: 50px;
+    height: 50px;
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    .last_div {
+        height: 1500px;
+    }
+
+    .i_container {
+        width: 450px;
+        flex-wrap: wrap;
+    }
+
+    .second_bg {
+        height: 500px;
+    }
+
+    .pic_box>div {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) { 
+    .color_bg {
+        height: 650px;
+    }
+
+    .color_bg>div {
+        position: relative;
+        padding: 0px;
+        height: 94%;
+    }
+
+    .letter_box {
+        float: none;
+        margin: 40px auto 0px auto;
+        width: 90%;
+        text-align: center;
+    }
+
+    .iphone_pic {
+        position: absolute;
+        left: 50%;
+        bottom: 0px;
+        transform: translate(-50%, 0%);
+    }
+
+    .i_container {
+        width: 225px;
+        display: block;
+    }
+
+    .second_bg {
+        height: 800px;
+    }
+
+
+}

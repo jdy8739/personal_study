@@ -1,0 +1,47 @@
+.box {
+    width: 670px;
+    display: inline-block;
+}
+
+.profile {
+    width: 35px;
+    display: inline-block;
+}
+
+.name {
+    margin-top: 0px;
+    margin-bottom: 2px;
+    font-size: 15px;
+}
+
+.regDate {
+    margin-top: 2px;
+    font-size: 12px;
+}
+
+.title {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.content {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.gadget {
+    width: 150px;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.icon {
+    float: right;
+    width: 18px;
+}
+
+.container {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}

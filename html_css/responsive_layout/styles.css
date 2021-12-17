@@ -1,0 +1,23 @@
+.container {
+    width: 1000px;
+    margin: 100px auto 0px auto;
+    display: flex;
+}
+
+.container div {
+    text-align: center;
+    margin: 0px 70px 0px 70px;
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 500px;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: block;
+    }
+}

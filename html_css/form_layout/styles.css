@@ -1,0 +1,53 @@
+.container {
+    width: 300px;
+    margin: 0px auto 0px auto;
+}
+
+.title {
+    font-size: 25px;
+}
+
+form {
+    /* background-color: #eee; */
+    height: 320px;
+    font-size: 12px;
+}
+
+.desc {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    box-sizing: border-box;
+    padding: 8px;
+    width: 100%;
+}
+
+.box {
+    width: 48%;
+    display: inline-block;
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+input[type=checkbox] {
+    margin-left: 0px;
+    padding-left: 0px;
+    width: 12px;
+}
+
+button[type=submit] {
+    float: right;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: orange;
+    padding: 5px;
+    width: 100px;
+}

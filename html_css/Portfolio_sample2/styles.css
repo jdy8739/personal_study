@@ -1,0 +1,63 @@
+body {
+    margin: 0px;
+    background-color: #f7f9fc;
+}
+
+.block {
+    background-color: white;
+}
+
+.bold_text {
+    font-weight: bolder;
+}
+
+.r_text {
+    font-size: 14px;
+}
+
+.blue_font {
+    color: #6fbaf8;
+    margin: 5px;
+}
+
+i {
+    color: #6fbaf8;
+    display: inline-block;
+}
+
+p, span {
+    font-size: 14px;
+}
+
+span {
+    font-weight: bolder;
+}
+
+button {
+    background-color: #6fbaf8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px 8px 20px;
+    font-size: 12px;
+}
+
+button:hover {
+    background-color: #eb6bc0;
+}
+
+.badge {
+    color: grey; 
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.small_text {
+    font-size: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .frineds_list {
+        display: none;
+    }
+}
