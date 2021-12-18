@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+</head>
+<body>
+    <h2 id="title">Hello</h2>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script>
+        setTimeout(() => {
+            $('#title').toggleClass('yellow_bg')
+            $('#title').html('<h1>Hello~~</h1>')
+        }, 1000)
+
+        setTimeout(() => {
+            $('#title').text('FINN')
+        }, 2000)
+
+        setTimeout(() => {
+            $('#title').css('color', 'purple')
+            $('#title').css('fontSize', '30px')
+        }, 3000)
+    </script>
+</body>
+</html>
+
+<style>
+    .yellow_bg {
+        background-color: yellow;
+    }
+</style>
