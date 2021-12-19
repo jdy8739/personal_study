@@ -10,14 +10,20 @@
     <title>Modal</title>
 </head>
 <body>
-    <div class="nav_bar">
-        <h5>NZ TOUR</h5>
-        <p id="loginBtn">sign In</p>
-        <p>about us</p>
-        <p id="products">products</p>
-        <p>contact</p>
-    </div>
     <div class="background">
+        <div class="nav_bar">
+            <h5 id="logo">NZ TOUR</h5>
+            <p id="loginBtn">sign In</p>
+            <p>about us</p>
+            <p id="products">products</p>
+            <p>contact</p>
+        </div>
+        <div id="menu_bar" class="hide_bar">
+            <p>MENU</p>
+            <p>IPSUM</p>
+            <p>LOREN</p>
+            <p>LIKED</p>
+        </div>
         <div id="list">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">An item</li>
@@ -30,7 +36,9 @@
         <div class="modal_login">
             <form id="login_form">
                 <input placeholder="email" type="email" id="email">
+                <p>please input right id.</p>
                 <input placeholder="password" type="password" id="password">
+                <p>please input right password.</p>
                 <div class="btnSection">
                     <button type="submit">Sign In</button>
                     <button type="text" id="cancelBtn">Cancel</button>
@@ -60,6 +68,7 @@
         })
 
         $('#cancelBtn').click(function() {
+            //alert($('#email').val()) = '' 이렇게는 안됨
             document.getElementById('email').value = '';
             document.getElementById('password').value = '';
         })
@@ -68,8 +77,8 @@
             const id = $('#email').val();
             const pw = $('#password').val();
 
-            if(id == '' || pw == '') {
-                alert('Please Input your id and password.')
+            if(id == '' || !suitablePw) {
+                alert('Please Input suitable id and password.')
                 event.preventDefault();
             }
             else alert(`welcome ${id}`)
@@ -78,21 +87,102 @@
         //$('.loginBtn').on('click', makeModal) 
         //JQuery는 위에 일반 자바스크립트처럼 이벤트 다음 매개변수로 함수 이름을 쓰지못하고,
         //함수 전체를 적어야함???
+
+        $('#email').on('input', function() {
+            const inputEmail = $('#email').val()
+            if(inputEmail != '' && inputEmail.includes('@')) {
+                document.querySelector('#login_form p:nth-child(2)').innerText = 'right id form'
+            } else document.querySelector('#login_form p:nth-child(2)').innerText = 'please input right id.'
+        })
+
+        let suitablePw = false;
+        const capitalRegTest = /[A-Z]/
+
+        $('#password').on('input', function() {
+            const inputPw = $('#password').val();
+
+            if(inputPw != '' && capitalRegTest.test(inputPw)) {
+                document.querySelector('#login_form p:nth-child(4)').innerText = 'right password form'
+                suitablePw = true;
+
+            } else {
+                document.querySelector('#login_form p:nth-child(4)').innerText = 'please input right password.'
+                suitablePw = false;
+            }
+        })
+
+        $('#logo').click(function() {
+            const menuBar = $('#menu_bar')
+            //menuBar.animate({ transform: 'translateX(0px)' }, 1000) animate에서 transform은 안되네???..
+            //menuBar.animate({ marginLeft: '120px' }, 1000) 이렇게하는 것보다..
+            //menuBar.css('transform', 'translateX(0px)') //이런식으로 하는게 더 낫고..
+            menuBar.toggleClass('hide_bar') //class로 조종하는게 유지보수, 확장 측면에서 베스트이다.
+        })
+
+        $(window).on('scroll', function() {
+            if($(window).scrollTop() > 100) {
+                $('.nav_bar').addClass('nav_bar_show');
+            } else {
+                $('.nav_bar').removeClass('nav_bar_show');
+            }
+        })
     </script>
 </body>
 </html>
 
 <style>
+    body {
+        height: 1200px;
+    }
+
+    #menu_bar {
+        width: 150px;
+        height: 95%;
+        background-color: rgb(147, 53, 235, 0.7);
+        display: inline-block;
+        position: absolute;
+        margin: -1px;
+        border-right: 1px solid white;
+        color: white;
+        /* transform: translateX(-150px); */
+        transition: all 1s;
+        position: fixed;
+        top: 55px;
+    }
+
+    .hide_bar {
+        transform: translateX(-150px);
+        opacity: 0.1;
+    }
+
+    #menu_bar>p {
+        padding: 20px 20px 0px 20px;
+        text-align: center;
+    }
+
     #list {
         display: none;
+        position: fixed;
+        top: 55px;
+        width: 100%;
     }
 
     .nav_bar {
         height: 55px;
         width: 100%;
-        background-color: violet;
+        /* background-color: rgb(238, 130, 238, 0); */
         display: flex;
         color: white;
+        position: fixed;
+        margin: -1px;
+        transition: all 1s;
+        z-index: 11;
+    }
+
+    .nav_bar_show {
+        background-color: rgb(238, 130, 238, 1);
+        transform: scale(1.1);
+        padding: 0px 5% 0px 5%;
     }
 
     .nav_bar h5 {
@@ -117,7 +207,7 @@
     .modal_login {
         background-color: rgb(255, 255, 255);
         width: 350px;
-        height: 200px;
+        height: 235px;
         position: fixed;
         left: 0px;
         right: 0px;
@@ -138,7 +228,7 @@
     }
 
     .btnSection {
-        text-align: center;
+        text-align: right;
     }
 
     .btnSection button {
@@ -148,5 +238,23 @@
         padding: 4px 12px 4px 12px;
         border-radius: 25px;
         margin: 10px;
+        font-size: 12px;
     }
+
+    .btnSection button:last-child {
+        margin-right: 24px;
+    }
+
+    input {
+        margin-bottom: 0px;
+    }
+
+    #login_form p {
+        margin-top: 5px;
+        margin-left: 24px;
+        font-size: 12px;
+        color: orange;
+    }
+
+    
 </style>
