@@ -26,6 +26,10 @@
             <div class="slide" style="background-color: rgb(204, 15, 125);">
 
             </div>
+
+            <div class="slide" style="background-color: rgb(15, 204, 78);">
+
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -33,20 +37,24 @@
     crossorigin="anonymous"></script>
     <script>
         let page = 0;
-        const picNum = 3; //여만 바꿔주면 됨.
-        const pageLimit = picNum + 1;
-        const ratio = (100 / pageLimit).toFixed(2);
+        const picNum = $('.slide').length;
+        const picRange = picNum - 1;
+        const ratio = (100 / picNum).toFixed(2);
+
+        $('.slide').width(`${ratio}%`);
+        $('#slide_pic').width(`${100 * picNum}%`); 
+        //JQuery의 width()함수로 해결
 
         $('#slideRight').click(function() {
             page ++;
-            if(page >= picNum) $('#slideRight').attr('disabled', true);
+            if(page >= picRange) $('#slideRight').attr('disabled', true);
             if(page > 0) $('#slideLeft').attr('disabled', false);
             $('#slide_pic').css('transform', `translateX(${-ratio * page}%)`)
         })
 
         $('#slideLeft').click(function() {
             page --;
-            if(page <= picNum) $('#slideRight').attr('disabled', false);
+            if(page <= picRange) $('#slideRight').attr('disabled', false);
             if(page == 0) $('#slideLeft').attr('disabled', true);
             $('#slide_pic').css('transform', `translateX(${-ratio * page}%)`)
         })
@@ -70,13 +78,13 @@
     }
 
     #slide_pic {
-        width: 400%;
+        /* width: 400%; */
         height: 100%;
         transition: all 1s;
     }
 
     .slide {
-        width: 25%;
+        /* width: 25%; */
         height: 100%;
         float: left;
         background-position: center;
@@ -95,8 +103,12 @@
         background-image: url(images/pic3.jpg);
     }
 
-    .slide:last-child {
+    .slide:nth-child(4) {
         background-image: url(images/pic4.jpg);
+    }
+
+    .slide:last-child {
+        background-image: url(images/pic5.jpg);
     }
 
     .button_section {

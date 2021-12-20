@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab</title>
+</head>
+<body>
+    <div class="container">
+        <ul id="tab_menu">
+            <li>about us</li>
+            <li>products</li>
+            <li>service</li>
+            <li>contact</li>
+        </ul>
+        <div id="desc">
+            <p class="hide">about us loren inpsum</p>
+            <p class="hide">products loren inpsum</p>
+            <p class="hide">service loren inpsum</p>
+            <p class="hide">contact loren inpsum</p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script>
+        const list = $('#tab_menu li')
+        const desc = $('#desc p')
+        const listRange = $('#tab_menu li').length;
+
+        for(let i=0; i<listRange; i++) {
+            list.eq(i).on('click', function() {
+                list.removeClass('active');
+                desc.addClass('hide');
+                list.eq(i).addClass('active');
+                desc.eq(i).removeClass('hide');
+            });
+        }
+    </script>
+</body>
+</html>
+
+<style>
+    #tab_menu {
+        padding-left: 0px;
+    }
+
+    ul {
+        text-align: center;
+    }
+
+    ul li {
+        list-style-type: none;
+        display: inline-block;
+        padding: 12px;
+        cursor: pointer;
+        border-bottom: 1px solid gray;
+        margin: -3px;
+    }
+
+    ul li::after {
+        content: '';
+        display: block;
+        width: 100px;
+    }
+
+    .active {
+        border-bottom: none;
+        border-top: 3px solid orange;
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
+        color: orangered;
+    }
+
+    .container p {
+        text-align: center;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
