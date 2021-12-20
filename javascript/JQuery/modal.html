@@ -54,6 +54,18 @@
     crossorigin="anonymous"></script>
     <script>
 
+        $('.background').click(function(event) {
+            //$('.modal_login').hide(); //이벤트 버블링 현상일어남.
+            //event.target 실제로 내가 선택한 요소
+            //event.currentTarget 현재 컨텍스트에서 function()이 실행되는 위치(지금 이벤트리스너가 달린 곳) 
+            //JQuery에서는 event.currentTarget를 $(this) 이렇게도 표현한다.
+            if(event.target == this) $('.modal_login').hide(); //또는 event.currentTarget
+
+            //(event.target == $('.background') 또는 $(this))와 비교할 수 없다.
+            //자바스크립트 문법과 JQuery문법으로 찾은 객체를 비교할 수 없기때문이다.
+            //그래서 항상 같은 문법으로 찾은 객체를 비교해줘야 컴퓨터가 연산할 수 있다.
+        });
+
         $('#loginBtn').on('click', function() {
             $('.modal_login').fadeToggle();
         }) 

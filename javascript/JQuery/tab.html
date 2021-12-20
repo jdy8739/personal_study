@@ -9,10 +9,10 @@
 <body>
     <div class="container">
         <ul id="tab_menu">
-            <li>about us</li>
-            <li>products</li>
-            <li>service</li>
-            <li>contact</li>
+            <li data-num="0">about us</li>
+            <li data-num="1">products</li>
+            <li data-num="2">service</li>
+            <li data-num="3">contact</li>
         </ul>
         <div id="desc">
             <p class="hide">about us loren inpsum</p>
@@ -29,14 +29,33 @@
         const desc = $('#desc p')
         const listRange = $('#tab_menu li').length;
 
-        for(let i=0; i<listRange; i++) {
-            list.eq(i).on('click', function() {
-                list.removeClass('active');
-                desc.addClass('hide');
-                list.eq(i).addClass('active');
-                desc.eq(i).removeClass('hide');
-            });
+        // for(let i=0; i<listRange; i++) {
+        //     list.eq(i).on('click', function() {
+        //         list.removeClass('active');
+        //         desc.addClass('hide');
+        //         list.eq(i).addClass('active');
+        //         desc.eq(i).removeClass('hide');
+        //     });
+        // }
+        //위의 방법은 리스트의 개수대로 function()을 붙여야하기에 양이 많다면 메모리적인 측면에서 좋지않다.
+        //그래서 부모 element 하나에 이벤트리스너를 붙여 해결할 수 있다.
+
+        const tabMenu = document.getElementById('tab_menu')
+        tabMenu.addEventListener('click', function(event) {
+            const targetNum = event.target.dataset.num
+            handleClick(targetNum)
+        })
+
+        function handleClick(targetNum) {
+            list.removeClass('active');
+            desc.addClass('hide');
+            list.eq(targetNum).addClass('active');
+            desc.eq(targetNum).removeClass('hide');
         }
+        //이렇게 부모 요소 하나만 이벤트리스너를 달아서 처리해준다.
+        //li의 값을 식별하기위한 요소는 data- 를 달아서 고유 값을 지정해줄 수 있다.
+
+        //*** 이벤트리스너를 줄이면 1. 코드양이 줄고 2. 반복문 안쓸 수도 있고 3. 컴퓨터의 자원인 램을 덜 사용할 수 있다. ***
     </script>
 </body>
 </html>
