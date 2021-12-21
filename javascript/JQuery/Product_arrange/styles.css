@@ -1,0 +1,51 @@
+.container {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.card {
+    width: 200px;
+    height: 300px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 8px;
+    display: inline-block;
+    margin: 5px;
+    color: rgb(221, 221, 221);
+    padding: 12px;
+    position: relative;
+}
+
+.pic {
+    background-color: rgb(241, 241, 241);
+    width: 100%;
+    height: 50%;
+    margin: auto;
+    border-radius: 4px;
+}
+
+h4 {
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    clear: both;
+}
+
+.id {
+    float: left;
+    clear: both;
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+
+.desc {
+    float: left;
+    clear: both;
+    font-size: 14px;
+    margin-top: 0px;
+}
+
+.price {
+    position: absolute;
+    bottom: 0px;
+    right: 16px;
+}
