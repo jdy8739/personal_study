@@ -1,5 +1,21 @@
 body {
     background-color: seashell;
+    position: relative;
+    margin: 0px;
+    padding: 1px;
+}
+
+body::before {
+    content: '';
+    background-image: url(../images/chanel_model.jpg);
+    background-position: center;
+    background-size: cover;
+    opacity: 0.15;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
 }
 
 .container {
@@ -116,7 +132,6 @@ h4 {
 #changeCurrency {
     border: none;
     color: rgb(153, 153, 153);
-    background-color: seashell;
     cursor: pointer;
 }
 
