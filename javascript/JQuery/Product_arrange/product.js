@@ -32,27 +32,28 @@ let productData = [
 ]
 
 const cards = document.getElementsByClassName('card')
-
 const names = document.getElementsByClassName('id')
 const desc = document.getElementsByClassName('desc')
 const price = document.getElementsByClassName('price')
 const img = document.getElementsByTagName('img')
 
 let showDollor = false;
-const wonPrice = [];
+let wonPrice = [];
 productData.forEach(item => wonPrice.push(item.price));
 
-function sortList() {
+const tmpProductList = productData;
+
+function sortList(list) {
     const currency = showDollor == true ? '$' : 'w' 
-    for(let i=0; i<names.length; i++) {
-        names[i].innerText = productData[i].name;
-        desc[i].innerText = productData[i].desc;
-        price[i].innerText = productData[i].price + currency;
-        img[i].src = productData[i].src;
+    for(let i=0; i<list.length; i++) {
+        names[i].innerText = list[i].name;
+        desc[i].innerText = list[i].desc;
+        price[i].innerText = list[i].price + currency;
+        img[i].src = list[i].src;
     };
 };
 
-sortList();
+sortList(productData);
 
 document.getElementById('highest').addEventListener('click', function() {
     Array.from(cards).forEach(item => item.classList.remove('outlined'))
@@ -82,7 +83,7 @@ document.getElementById('lowToHigh').addEventListener('click', function() {
     productData.sort(function(a, b) {
         return a.price - b.price;
     });
-    sortList();
+    sortList(productData);
 });
 
 document.getElementById('highToLow').addEventListener('click', function() {
@@ -93,12 +94,16 @@ document.getElementById('highToLow').addEventListener('click', function() {
     productData.sort(function(a, b) {
         return b.price - a.price;
     });
-    sortList();
+    sortList(productData);
 });
 
 document.getElementById('changeCurrency').addEventListener('click', function() {
+    Array.from(cards).forEach(item => item.classList.remove('outlined'));
     if(!showDollor) {
-        const dollorPriceData = productData.map(item => parseInt(item.price) * 0.00125)
+        wonPrice = [];
+        productData.forEach(item => wonPrice.push(item.price));
+        
+        const dollorPriceData = productData.map(item => item.price * 0.00125);
         
         for(let i=0; i<productData.length; i++) productData[i].price = dollorPriceData[i];
         for(let i=0; i<price.length; i++) price[i].innerText = dollorPriceData[i] + '$';
@@ -116,5 +121,32 @@ document.getElementById('changeCurrency').addEventListener('click', function() {
 //     const dollorPriceData = productData.map(function(item) {
 //         return item.price * 0.00125
 //     })
-//     alert(dollorPriceData[0])
+//     ~~~~~~~~
 // }) 위 함수와 같음
+
+document.querySelector('#filterBtn').addEventListener('click', function() {
+    Array.from(cards).forEach(item => item.classList.remove('outlined'));
+    if(showDollor) {
+        alert('Please change currency as Won!');
+        return false;
+    }
+    Array.from(cards).forEach(item => item.classList.remove('hide'));
+
+    productData = tmpProductList;
+    const filterRange = document.getElementById('limitPrice').value;
+    if(filterRange == 0) {
+        alert('Please input number!');
+        return false;
+    }
+
+    productData = productData.filter(item => item.price < filterRange);
+    sortList(productData);
+    for(let i=cards.length; i>productData.length; i--) cards[i-1].classList.add('hide');
+});
+
+document.querySelector('#reset').addEventListener('click', function() {
+    Array.from(cards).forEach(item => item.classList.remove('outlined'));
+    Array.from(cards).forEach(item => item.classList.remove('hide'));
+    productData = tmpProductList;
+    sortList(productData);
+});

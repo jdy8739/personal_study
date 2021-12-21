@@ -10,13 +10,19 @@
 <body>
     <div class="container">
         <div>
+            <div class="priceFilter">
+                <input placeholder="Input limit price." id="limitPrice" type="number" min="0">
+                <button id="filterBtn">filter</button>
+                <button id="reset">reset</button>
+                <button id="changeCurrency">Show Dollor Price</button>
+            </div>
             <div class="button_section">
                 <button id="lowToHigh">Low to High</button>
                 <button id="highToLow">High to Low</button>
                 <button id="highest">Highest price</button>
                 <button id="lowest">Lowest price</button>
             </div>
-            <div style="clear: both; margin-bottom: 50px;"></div>
+            <div style="clear: both; margin-bottom: 30px;"></div>
             <div class="card">
                 <div class="pic">
                     <img src="#">
@@ -68,7 +74,6 @@
                 <button>more</button>
             </div>
         </div>
-        <button id="changeCurrency">Show Dollor Price</button>
     </div>
     <script src="product.js"></script>
 </body>

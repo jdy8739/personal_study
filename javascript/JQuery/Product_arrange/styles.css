@@ -114,11 +114,45 @@ h4 {
 }
 
 #changeCurrency {
-    position: absolute;
-    right: 0px;
-    margin-top: 40px;
     border: none;
     color: rgb(153, 153, 153);
     background-color: seashell;
     cursor: pointer;
+}
+
+.priceFilter {
+    margin-top: 10px;
+    float: left;
+}
+
+.priceFilter input {
+    padding: 7px 12px 7px 12px;
+    width: 150px;
+    border-radius: 12px;
+    border: 1px solid rgb(211, 79, 101);
+    background-color: seashell;
+}
+
+.priceFilter input:focus {
+    background-color: rgb(255, 255, 255);
+}
+
+.priceFilter button {
+    background-color: seashell;
+    border: 1px solid rgb(201, 201, 201);
+    padding: 8px;
+    border-radius: 10px;
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.priceFilter button:hover {
+    background-color: rgb(218, 182, 157);
+    color: white;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
 }
