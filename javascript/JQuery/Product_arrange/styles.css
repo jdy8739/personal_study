@@ -8,6 +8,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 75%;
+    position: relative;
 }
 
 .card {
@@ -90,9 +91,11 @@ h4 {
 .button_section button {
     background-color: seashell;
     border: 1px solid rgb(201, 201, 201);
-    padding: 12px;
+    padding: 8px;
     border-radius: 10px;
     color: rgb(153, 153, 153);
+    margin-top: 10px;
+    font-size: 12px;
 }
 
 .button_section button:hover {
@@ -102,10 +105,20 @@ h4 {
 }
 
 .button_section button:focus {
-    background-color: rgb(211, 79, 101);
+    background-color: rgb(218, 182, 157);
     color: white;
 }
 
 .outlined {
-    border: 2px solid tomato;
+    border: 2px solid rgb(211, 79, 101);
+}
+
+#changeCurrency {
+    position: absolute;
+    right: 0px;
+    margin-top: 40px;
+    border: none;
+    color: rgb(153, 153, 153);
+    background-color: seashell;
+    cursor: pointer;
 }
