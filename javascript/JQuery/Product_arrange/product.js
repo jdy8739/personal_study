@@ -71,6 +71,8 @@ let wonPrice = [];
 productData.forEach(item => wonPrice.push(item.price));
 
 const tmpProductList = [...productData];
+// const tmp = JSON.stringify(productData);
+// const tmpProductList = JSON.parse(tmp); 이렇게도 깊은 복사 가능, 하지만 리소스 많이 잡아먹음.
 
 function sortList(list) {
     productSection.innerHTML = '';
@@ -166,28 +168,30 @@ document.getElementById('changeCurrency').addEventListener('click', function() {
 // }) 위 함수와 같음
 
 document.querySelector('#filterBtn').addEventListener('click', function() {
-    Array.from(cards).forEach(item => item.classList.remove('outlined'));
     if(showDollor) {
         alert('Please change currency as Won!');
         return false;
     }
+    Array.from(cards).forEach(item => item.classList.remove('outlined'));
     Array.from(cards).forEach(item => item.classList.remove('hide'));
 
-    productData = tmpProductList;
     const filterRange = document.getElementById('limitPrice').value;
     if(filterRange == 0) {
         alert('Please input number!');
         return false;
     }
 
+    productData = [...tmpProductList];
     productData = productData.filter(item => item.price < filterRange);
     sortList(productData);
     for(let i=cards.length; i>productData.length; i--) cards[i-1].classList.add('hide');
 });
 
 document.querySelector('#reset').addEventListener('click', function() {
-    Array.from(cards).forEach(item => item.classList.remove('outlined'));
-    Array.from(cards).forEach(item => item.classList.remove('hide'));
-    productData = tmpProductList;
+    //productData = tmpProductList; 여기서 다시 같은 얕은복사로 주소를 공유하면서 겹쳐짐
+
+    // const tmpData = JSON.stringify(tmpProductList);
+    // productData = JSON.parse(tmpData); 다시 이렇게 써주든가, 밑과 같이 해결.
+    productData = [...tmpProductList];
     sortList(productData);
 });
