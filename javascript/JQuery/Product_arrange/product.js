@@ -24,34 +24,75 @@ let productData = [
         src: 'https://www.sephora.com/productimages/sku/s1237379-main-zoom.jpg?imwidth=612' 
     },
     {   
+        name: 'Viktor&RolfFlowerbomb', 
+        desc: 'This floral perfume for women explodes with an intoxicating whirl of cattleya, jasmine, and rose. Adding a sensual twist on the scent reminiscent of a room filled with rose petals.',
+        price: 74000, 
+        src: 'https://www.sephora.com/productimages/sku/s1377159-main-zoom.jpg?imwidth=612' 
+    },
+    {   
         name: 'CHANEL Eau de Toilette', 
         desc: 'A woody, aromatic fragrance for the man who defies convention; a provocative blend of citrus and woods that liberates the senses. Fresh, clean, and profoundly sensual.',
         price: 62000, 
         src: 'https://www.sephora.com/productimages/sku/s1284710-main-zoom.jpg?imwidth=612' 
+    },
+    {   
+        name: 'White Moss & Snowdrop Cologne', 
+        desc: 'Striking a fragrant contrast, snowdrop petals peek through powdery snow to greet forest-fresh moss…iridescent under winter sunlight.',
+        price: 52000, 
+        src: 'https://www.sephora.com/productimages/sku/s2475226-main-zoom.jpg?imwidth=612' 
+    },
+    {   
+        name: 'Wisteria Blue Eau de Parfum', 
+        desc: 'This ethereal, floral eau de parfum is created by combining watery notes with the essence of French wisteria, the richness of Bulgarian rose, and imperial jasmine.',
+        price: 88000, 
+        src: 'https://www.sephora.com/productimages/sku/s2039865-main-zoom.jpg?imwidth=612' 
+    },
+    {   
+        name: 'TOCCA Stella', 
+        desc: 'Stella is a fresh floral fragrance that embraces your flirtatious spirit. It is inspired by a spontaneous romance and is a bright and breezy blend of lavish Italian citrus, sweet freesia, and spicy lily.',
+        price: 72000, 
+        src: 'https://www.sephora.com/productimages/sku/s963280-main-zoom.jpg?imwidth=612' 
+    },
+    {   
+        name: 'Wisteria Eau de Rollerball', 
+        desc: 'This ethereal, floral eau de parfum is created by combining watery notes with the essence of French wisteria, the richness of Bulgarian rose, and imperial jasmine.',
+        price: 66000, 
+        src: 'https://www.sephora.com/productimages/sku/s2039873-main-zoom.jpg?imwidth=612' 
     }
 ]
 
-const cards = document.getElementsByClassName('card')
-const names = document.getElementsByClassName('id')
-const desc = document.getElementsByClassName('desc')
-const price = document.getElementsByClassName('price')
-const img = document.getElementsByTagName('img')
+const productSection = document.querySelector('.container>div #productSection');
+//const cards = document.querySelectorAll('.card'); 이거쓰면 nodelist가 반환됨
+const cards = document.getElementsByClassName('card');
+const price = document.getElementsByClassName('price');
 
 let showDollor = false;
 let wonPrice = [];
 productData.forEach(item => wonPrice.push(item.price));
 
-const tmpProductList = productData;
+const tmpProductList = [...productData];
 
 function sortList(list) {
+    productSection.innerHTML = '';
     const currency = showDollor == true ? '$' : 'w' 
-    for(let i=0; i<list.length; i++) {
-        names[i].innerText = list[i].name;
-        desc[i].innerText = list[i].desc;
-        price[i].innerText = list[i].price + currency;
-        img[i].src = list[i].src;
-    };
+    list.forEach(product => makeList(product, currency));
 };
+
+function makeList(product, currency) {
+    const itemSection = document.createElement('div');
+    itemSection.className = 'card';
+    itemSection.innerHTML = 
+        `<div class="pic">
+            <img src="${product.src}">
+        </div>
+        <h4>Product</h4>
+        <p class="id">${product.name}</p>
+        <p class="desc">${product.desc}</p>
+        <p class="price">${product.price + currency}</p>
+        <button>more</button>`;
+
+    productSection.append(itemSection);
+}
 
 sortList(productData);
 
