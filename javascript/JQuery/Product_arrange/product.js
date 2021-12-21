@@ -25,6 +25,8 @@ const productData = [
     }
 ]
 
+const cards = document.getElementsByClassName('card')
+
 const names = document.getElementsByClassName('id')
 const desc = document.getElementsByClassName('desc')
 const price = document.getElementsByClassName('price')
@@ -37,4 +39,24 @@ for(let i=0; i<names.length; i++) {
     img[i].src = productData[i].src;
 };
 
+
+document.getElementById('highest').addEventListener('click', function() {
+    Array.from(cards).forEach(item => item.classList.remove('outlined'))
+
+    const highest = productData.reduce(function(a, b) {
+        return a.price > b.price ? a : b
+    }) //마지막 파라미터로 시작값 넣어줄 수 있음.
+    const targetIndex = productData.findIndex(item => item.name === highest.name);
+    cards[targetIndex].classList.toggle('outlined')
+})
+
+document.getElementById('lowest').addEventListener('click', function() {
+    Array.from(cards).forEach(item => item.classList.remove('outlined'))
+
+    const lowest = productData.reduce(function(a, b) {
+        return a.price < b.price ? a : b
+    })
+    const targetIndex = productData.findIndex(item => item.name === lowest.name);
+    cards[targetIndex].classList.toggle('outlined')
+})
 

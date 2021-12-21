@@ -9,6 +9,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="button_section">
+            <button id="highest">Highest price</button>
+            <button id="lowest">Lowest price</button>
+        </div>
+        <div style="clear: both; margin-bottom: 50px;"></div>
         <div class="card">
             <div class="pic">
                 <img src="#">
@@ -51,12 +56,5 @@
         </div>
     </div>
     <script src="product.js"></script>
-    <script>
-        const monsters = [ 1, 44, 4, 6, 7, 9 ]
-
-        const max = monsters.reduce(function(a, b) {
-            return a > b ? a : b
-        }, 0)
-    </script>
 </body>
 </html>

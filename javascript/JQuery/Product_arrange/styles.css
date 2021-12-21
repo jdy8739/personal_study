@@ -5,6 +5,9 @@ body {
 .container {
     margin-top: 100px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
 }
 
 .card {
@@ -78,4 +81,31 @@ h4 {
 .card button:hover {
     background-color: rgb(255, 214, 184);
     cursor: pointer;
+}
+
+.button_section {
+    float: right;
+}
+
+.button_section button {
+    background-color: seashell;
+    border: 1px solid rgb(201, 201, 201);
+    padding: 12px;
+    border-radius: 10px;
+    color: rgb(153, 153, 153);
+}
+
+.button_section button:hover {
+    background-color: rgb(218, 182, 157);
+    color: white;
+    cursor: pointer;
+}
+
+.button_section button:focus {
+    background-color: rgb(211, 79, 101);
+    color: white;
+}
+
+.outlined {
+    border: 2px solid tomato;
 }
