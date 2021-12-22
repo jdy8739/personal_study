@@ -74,6 +74,8 @@ productData.forEach(item => wonPrice.push(item.price));
 const tmp = JSON.stringify(productData);
 let tmpProductList = JSON.parse(tmp); //이렇게도 깊은 복사 가능, 하지만 리소스 많이 잡아먹음.
 
+const exchangeRate = 0.00125;
+
 function sortList(list) {
     productSection.innerHTML = '';
     const currency = showDollor == true ? '$' : 'w' 
@@ -140,13 +142,15 @@ document.getElementById('highToLow').addEventListener('click', function() {
     sortList(productData);
 });
 
-document.getElementById('changeCurrency').addEventListener('click', function() {
+document.getElementById('changeCurrency').addEventListener('click', changeCurrency);
+
+function changeCurrency() {
     Array.from(cards).forEach(item => item.classList.remove('outlined'));
     if(!showDollor) {
         wonPrice = [];
         productData.forEach(item => wonPrice.push(item.price));
         
-        const dollorPriceData = productData.map(item => item.price * 0.00125);
+        const dollorPriceData = productData.map(item => item.price * exchangeRate);
 
         for(let i=0; i<productData.length; i++) productData[i].price = dollorPriceData[i];
         for(let i=0; i<price.length; i++) price[i].innerText = dollorPriceData[i] + '$';
@@ -158,7 +162,7 @@ document.getElementById('changeCurrency').addEventListener('click', function() {
         showDollor = false;
         this.innerText = 'Show Dollor Price';
     }
-})
+};
 
 // document.getElementById('dollor_price').addEventListener('click', function() {
 //     const dollorPriceData = productData.map(function(item) {
@@ -169,8 +173,9 @@ document.getElementById('changeCurrency').addEventListener('click', function() {
 
 document.querySelector('#filterBtn').addEventListener('click', function() {
     if(showDollor) {
-        alert('Please change currency as Won!');
-        return false;
+        //alert('Please change currency as Won!');
+        changeCurrency();
+        //return false;
     }
     Array.from(cards).forEach(item => item.classList.remove('outlined'));
     Array.from(cards).forEach(item => item.classList.remove('hide'));
@@ -186,8 +191,10 @@ document.querySelector('#filterBtn').addEventListener('click', function() {
     productData = JSON.parse(tmpList); //이렇게 바꿈
 
     productData = productData.filter(item => item.price < filterRange);
-    sortList(productData);
     for(let i=cards.length; i>productData.length; i--) cards[i-1].classList.add('hide');
+
+    if(productData.length > 0) sortList(productData);
+    else productSection.innerHTML = '<p class="alert">NO PRODUCTS IN RANGE</p>'
 });
 
 document.querySelector('#reset').addEventListener('click', function() {
