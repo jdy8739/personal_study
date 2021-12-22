@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll_ani</title>
+</head>
+<body>
+    <div>
+        <div class="img-box">
+            <img src="images/card1.png">
+        </div>
+        <div class="img-box">
+            <img src="images/card2.png">
+        </div>
+        <div class="img-box">
+            <img src="images/card3.png">
+        </div>
+    </div>
+    <script>
+        const card1 = document.querySelector('.img-box:first-child img');
+        const card2 = document.querySelector('.img-box:nth-child(2) img');
+
+        function getY() {
+            const y = document.documentElement.scrollTop;
+            const opacity = -1/400 * y + 730/400;
+            const opacity2 = -1/400 * y + 1130/400;
+
+            //선형 1차 방정식: a * y + b;
+            //a는 -1 / 시작점과 끝점의 차이, b는 끝점 / a와 b의 차이
+
+            const size = `${opacity/10 + 0.9}`;
+            const size2 = `${opacity2/10 + 0.9}`;
+
+            if(y > 330) {
+                card1.style.opacity = opacity;
+                card1.style.transform = `scale(${size})`;
+            };
+
+            if(y > 730) {
+                card2.style.opacity = opacity2;
+                card2.style.transform = `scale(${size2})`;
+            };
+        }
+        window.addEventListener('scroll', getY);
+    </script>
+</body>
+</html>
+
+<style>
+    body {
+        padding: 1px;
+        height: 2500px;
+    }
+
+    body>div {
+        margin-top: 500px;
+    }
+
+    .img-box {
+        position: sticky;
+        top: 200px;
+        width: 55%;
+        max-width: 700px;
+        margin: auto;
+        transition : all 0.2s
+    }
+
+    .img-box img {
+        width: 100%;
+        display: block;
+        margin: auto;
+    }
+
+</style>

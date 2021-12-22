@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Product_main</title>
+</head>
+<body>
+    <div class="container">
+        <button class="showMore">Show More</button><!--본 페이지에는 scroll 이벤트 및 porition: sticky; 사용-->
+        <div class="imgBox">
+            <img src="perfume1.jpg">
+        </div>
+        <div class="textBox">
+            <h1>CHANEL</h1>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+            </p>
+        </div>
+        <div class="textBox">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Augue lacus viverra vitae congue eu. Elit sed vulputate mi sit amet 
+                mauris commodo quis.
+            </p>
+        </div>
+        <div style="height: 200px;"></div>
+        <button class="showMore">Show More</button>
+        <div class="textBox">
+            <h1>CHANEL MEN</h1>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+            </p>
+        </div>
+        <div class="textBox">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Augue lacus viverra vitae congue eu. Elit sed vulputate mi sit amet 
+                mauris commodo quis.
+            </p>
+        </div>
+    </div>
+    <div style="height: 1000px;"></div>
+    <script>
+        const img = document.querySelector('.imgBox img');
+
+        window.addEventListener('scroll', function() {
+            const y = document.documentElement.scrollTop;
+            
+            if(y > 450) img.src='perfume2.jpg'
+            else img.src='perfume1.jpg'
+        });
+    </script>
+</body>
+</html>
