@@ -22,11 +22,18 @@
             <div class="slide" style="background-color: mediumslateblue;">
 
             </div>
-
             <div class="slide" style="background-color: rgb(204, 15, 125);">
 
             </div>
+            <div class="slide" style="background-color: rgb(13, 58, 117);">
+              
+            </div>
+            <div class="slide" style="background-color: rgb(15, 204, 78);">
 
+            </div>
+            <div class="slide" style="background-color: rgb(15, 204, 78);">
+
+            </div>
             <div class="slide" style="background-color: rgb(15, 204, 78);">
 
             </div>
@@ -40,9 +47,19 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script>
     <script>
+        const slides = $('.slide');
+        for(let i=0; i<slides.length; i++) {
+            slides.eq(i).css({ 
+                "background": `url(images/pic${i + 1}.jpg)`, 
+                'background-position': 'center', 
+                'background-repeat' : 'no-repeat',
+                'background-size': 'cover'
+            });
+        }
+
         let page = 0;
-        const picNum = $('.slide').length;
-        const picRange = picNum - 1;
+        const picNum = $('.slide').length + 1;
+        const picRange = picNum - 2;
         const ratio = (100 / picNum).toFixed(2);
         let direction;
 
@@ -71,7 +88,6 @@
                 }
             }
         });
-
 
         function manupulateSlide(direction) {
             if(direction == 'right') {
@@ -140,26 +156,6 @@
         float: left;
         background-position: center;
         background-size: cover;
-    }
-
-    .slide:first-child {
-        background-image: url(images/pic1.jpg);
-    }
-
-    .slide:nth-child(2) {
-        background-image: url(images/pic2.png);
-    }
-
-    .slide:nth-child(3) {
-        background-image: url(images/pic3.jpg);
-    }
-
-    .slide:nth-child(4) {
-        background-image: url(images/pic4.jpg);
-    }
-
-    .slide:last-child {
-        background-image: url(images/pic5.jpg);
     }
 
     .carousel_container button {
