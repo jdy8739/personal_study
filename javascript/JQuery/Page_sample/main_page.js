@@ -20,6 +20,8 @@ function makeList(item, contentBox) {
 }
 
 const cartList = $('#cart-list');
+const total = $('.total');
+let totalPrice = 0;
 const cartHeight = $('.cart').height();
 
 let putItemsNum = 0;
@@ -43,7 +45,7 @@ setTimeout(function() {
             const desc = item.draggable[0];
             
             putItemsNum ++;
-            $('.cart').css('height', `${putItemsNum * 0.5 * cartHeight + cartHeight}px`);
+            $('.cart').css('height', `${putItemsNum * 0.44 * cartHeight + cartHeight}px`);
 
             const name = desc.getElementsByTagName('h3')[0].innerText;
             const manufacturer = desc.getElementsByTagName('p')[0].innerText;
@@ -53,19 +55,22 @@ setTimeout(function() {
             const inputItem = 
             `<div>
                 <img src="${imgSrc}">
-                <div>
+                <div class="itme">
                     <h3>${name}</h3>
                     <p>${manufacturer}</p>
                     <p>${price}</p>
                     <div class="inputBtn">
                         <p>수량</p>                  
                     </div>
-                    <input type="number" class="quantity">
+                    <input type="number" class="quantity" value=1>
                 </div>
+                <button class="delBtn">X</button>
             </div>`
 
             setTimeout(function() {
                 cartList.append(inputItem);
+                totalPrice += parseInt(price);
+                total.text(`총 합계 ${totalPrice}원`);
             }, 500);
         }
     })
