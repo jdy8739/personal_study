@@ -1,0 +1,129 @@
+body {
+    margin: 0px;
+    background-color: white;
+}
+
+.nav-bar {
+    width: 100%;
+    height: 55px;
+    background-color: rgb(66, 66, 66);
+    padding: 1px;
+    display: flex;
+    align-items: center;
+    min-width: 700px;
+}
+
+.nav-bar h2, p {
+    margin: 0px;
+    color: rgb(165, 165, 165);
+    padding: 0px 10px 0px 10px;
+}
+
+.nav-bar p:nth-child(6) {
+    flex-grow: 1;
+}
+
+.nav-bar p:hover {
+    color: rgb(255, 255, 255);
+}
+
+.nav-bar button {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.search-box {
+    padding: 40px;
+}
+
+#search {
+    padding: 10px 8px 10px 8px;
+    width: 100%;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.content-box {
+    padding: 0px 40px 40px 40px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.content-box:nth-child(3) { /* content-box 클래스로서가 아니라 부모 기준 몇 번째인지 ()에 기입 */
+    width: 65%;
+}
+
+.content-box:last-child {
+    width: 25%;
+    min-width: 450px;
+    float: right;
+    vertical-align: top; /* inline-block로 나란히 있는 div요소가 갑자기 틀어지면 vertical-align top 쓰면 해결 */
+}
+
+.card {
+    width: 175px;
+    height: 300px;
+    border: 1px solid gainsboro;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.card h3 {
+    margin: 10px;
+}
+
+.card img {
+    width: 100%;
+    height: 140px;
+}
+
+.price {
+    position: absolute;
+    bottom: 0px;
+    background-color: rgb(245, 245, 245);
+    width: 100%;
+    height: 40px;
+    border-top: 1px solid gainsboro;
+    display: flex;
+    align-items: center;
+}
+
+.price {
+    font-size: 12px;
+}
+
+.cart {
+    border: 2px solid gainsboro;
+    width: 100%;
+    height: 350px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.cart-put {
+    margin: 10px 10px 3px 10px;
+    height: 235px;
+    background-color: rgb(43, 41, 41);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart p {
+    margin: 14px;
+    padding: 0px;
+    float: right;
+}
+
+#buy-btn {
+    background-color: rgb(37, 131, 255);
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
