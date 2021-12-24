@@ -51,7 +51,7 @@ body {
 }
 
 .content-box:nth-child(3) { /* content-box 클래스로서가 아니라 부모 기준 몇 번째인지 ()에 기입 */
-    width: 65%;
+    /* width: 65%; */
 }
 
 .content-box:last-child {
@@ -90,7 +90,7 @@ body {
     height: 140px;
 }
 
-.itme h3 {
+.item h3 {
     margin-top: 0px;
     margin-bottom: 5px;
 }
@@ -117,7 +117,7 @@ body {
     border-radius: 5px;
     box-sizing: border-box;
     position: relative;
-    transition: all 1s;
+    transition: all 0.5s;
 }
 
 .cart-put {
@@ -158,18 +158,17 @@ body {
 
 #cart-list {
     padding: 12px;
-    height: 123px;
 }
 
 .highLight {
     background-color: yellow;
 }
 
-#cart-list>div {
+.cart-item {
     margin-top: 12px;
     margin-bottom: 25px;
     display: flex;
-    height: 100%;
+    height: 125px;
 }
 
 #cart-list img {
@@ -191,7 +190,7 @@ body {
     background-color: rgb(221, 229, 231);
     border-radius: 8px 0px 0px 8px;
     display: inline-block;
-    bottom: 6px;
+    bottom: 7px;
     left: 20px;
     position: absolute;
     display: flex;
@@ -212,7 +211,7 @@ body {
 
 .delBtn {
     width: 20px;
-    height: 100%;
+    height: 95%;
     border: 1px solid rgb(226, 226, 226);
     margin-left: 8px;
     border-radius: 5px;

@@ -19,12 +19,15 @@ function makeList(item, contentBox) {
     contentBox.append(itemCard);
 }
 
+const itemBoxSize = 162;
+
 const cartList = $('#cart-list');
 const total = $('.total');
 let totalPrice = 0;
-const cartHeight = $('.cart').height();
+let cartHeight;
 
 let putItemsNum = 0;
+let itemId = 0;
 
 let items;
 let itemNames;
@@ -43,34 +46,54 @@ setTimeout(function() {
     $('.cart-put').droppable({
         drop: function(event, item) {
             const desc = item.draggable[0];
-            
-            putItemsNum ++;
-            $('.cart').css('height', `${putItemsNum * 0.44 * cartHeight + cartHeight}px`);
 
             const name = desc.getElementsByTagName('h3')[0].innerText;
-            const manufacturer = desc.getElementsByTagName('p')[0].innerText;
             const price = desc.getElementsByTagName('p')[1].innerText;
+            
+            const items = document.getElementsByClassName('cart-item');
+            
+            for(let i=0; i<items.length; i++) {
+                const item = items[i];
+                const itemName = item.getElementsByTagName('h3')[0].innerText;
+                
+                if(itemName == name) {
+                    item.getElementsByTagName('input')[0].value ++;
+                    calTotalPrice(price);
+                    return;
+                }
+            }
+            
+            itemId ++;
+            putItemsNum ++;
+            cartHeight = $('.cart').outerHeight(); 
+            $('.cart').css('height', `${cartHeight + itemBoxSize}px`);
+
+            const manufacturer = desc.getElementsByTagName('p')[0].innerText;
             const imgSrc = desc.getElementsByTagName('img')[0].src;
 
             const inputItem = 
-            `<div>
+            `<div class="cart-item" data-id="${itemId}">
                 <img src="${imgSrc}">
-                <div class="itme">
+                <div class="item">
                     <h3>${name}</h3>
                     <p>${manufacturer}</p>
                     <p>${price}</p>
                     <div class="inputBtn">
                         <p>수량</p>                  
                     </div>
-                    <input type="number" class="quantity" value=1>
+                    <input type="number" class="quantity" value=1 min=1>
                 </div>
-                <button class="delBtn">X</button>
+                <button class="delBtn" data-id="${itemId}">X</button>
             </div>`
 
             setTimeout(function() {
                 cartList.append(inputItem);
-                totalPrice += parseInt(price);
-                total.text(`총 합계 ${totalPrice}원`);
+                calTotalPrice(price);
+
+                $('.quantity').off('input', changeQuantity); //얘로 기존의 이벤트를 제거해줘야함.
+
+                $('.delBtn').click(delCartList);
+                $('.quantity').on('input', changeQuantity);
             }, 500);
         }
     })
@@ -95,5 +118,47 @@ searchBar.on('input', function() {
     }
 });
 
+function delCartList() {
+    const cartItems = document.querySelectorAll('.cart-item');
+    const itemToDel = this.dataset.id;
 
+    for(let i=0; i<cartItems.length; i++) {
+        if(cartItems[i].dataset.id == itemToDel) {
 
+            const price = $('.item>p:nth-child(3)').eq(i).text(); 
+            const quantity = $('.quantity').eq(i).val();
+            const substract = parseInt(price) * quantity;
+
+            calTotalPrice(-substract);
+
+            cartItems[i].remove();
+
+            putItemsNum --;
+            cartHeight = $('.cart').outerHeight(); 
+            $('.cart').css('height', `${cartHeight - itemBoxSize}px`);
+            return;
+        }
+    }
+}
+
+function calTotalPrice(priceToCal) {
+    totalPrice += parseInt(priceToCal);
+    total.text(`총 합계 ${totalPrice}원`);
+}
+
+function changeQuantity() {
+    //const quantity = this.value;
+    const cartItems = $('.cart-item');
+    totalPrice = 0;
+    let tmpTotal = 0;
+    let tmpPrice;
+
+    for(let i=0; i<cartItems.length; i++) {
+        const quantity = cartItems.eq(i).find('.quantity').val();
+        const price = cartItems.eq(i).find('.item>p:nth-child(3)').text();
+
+        tmpPrice = quantity * parseInt(price);
+        tmpTotal += tmpPrice;
+    }
+    calTotalPrice(tmpTotal);
+}
