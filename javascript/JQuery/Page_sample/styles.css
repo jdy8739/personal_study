@@ -69,6 +69,11 @@ body {
     display: inline-block;
     vertical-align: top;
     margin-right: 30px;
+    background-color: white;
+}
+
+.card:active {
+    z-index: 100;
 }
 
 .card:last-child {
@@ -106,6 +111,8 @@ body {
     height: 350px;
     border-radius: 5px;
     box-sizing: border-box;
+    position: relative;
+    transition: all 1s;
 }
 
 .cart-put {
@@ -119,9 +126,13 @@ body {
 }
 
 .cart p {
-    margin: 14px;
     padding: 0px;
-    float: right;
+}
+
+.total {
+    position: absolute;
+    bottom: 60px;
+    right: 10px;
 }
 
 #buy-btn {
@@ -132,12 +143,60 @@ body {
     border-radius: 5px;
     color: white;
     font-size: 15px;
+    position: absolute;
+    bottom: 0px;
 }
 
 .hide {
     display: none;
 }
 
+#cart-list {
+    padding: 12px;
+}
+
 .highLight {
     background-color: yellow;
+}
+
+#cart-list>div {
+    margin-top: 12px;
+    margin-bottom: 25px;
+}
+
+#cart-list img {
+    width: 45%;
+}
+
+#cart-list>div>div {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    text-align: right;
+}
+
+.inputBtn {
+    height: 35px;
+    width: 40px;
+    background-color: rgb(221, 229, 231);
+    border-radius: 8px 0px 0px 8px;
+    display: inline-block;
+    bottom: 0px;
+    left: 31px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputBtn p {
+    font-size: 12px;
+}
+
+.quantity {
+    width: 100px;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-top: 10px;
 }
