@@ -15,6 +15,35 @@ function makeList(item, contentBox) {
             <div class="price">
                 <p>${item.price}</p>
             </div>
-        </div>&emsp; &emsp;`
+        </div>`
     contentBox.append(itemCard);
 }
+
+let items;
+let itemNames;
+let itemNamesCopied = [];
+setTimeout(function() {
+    items = $('.card');
+    itemNames = $('.card h3');
+    Array.from(itemNames).forEach(name => itemNamesCopied.push(name.innerText));
+}, 100);
+
+const searchBar = $('#search');
+searchBar.on('input', function() {
+    const keyWord = searchBar.val();
+    console.log(keyWord)
+    
+    for(let i=0; i<items.length; i++) {
+        const index = itemNames[i].innerText.indexOf(keyWord);
+
+        if(index < 0) { //includes도 가능할듯
+            items.eq(i).addClass('hide');
+        } else {
+            itemNames.eq(i).html(itemNamesCopied[i]);
+            items.eq(i).removeClass('hide');
+            const replaced = itemNames.eq(i).html().replace(keyWord, `<span class="highLight">${keyWord}</span>`);
+            itemNames.eq(i).html(replaced);
+        }
+    }
+});
+

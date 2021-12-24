@@ -68,10 +68,16 @@ body {
     position: relative;
     display: inline-block;
     vertical-align: top;
+    margin-right: 30px;
+}
+
+.card:last-child {
+    margin-right: 0px;
 }
 
 .card h3 {
     margin: 10px;
+    display: inline-block;
 }
 
 .card img {
@@ -126,4 +132,12 @@ body {
     border-radius: 5px;
     color: white;
     font-size: 15px;
+}
+
+.hide {
+    display: none;
+}
+
+.highLight {
+    background-color: yellow;
 }
