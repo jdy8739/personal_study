@@ -1,0 +1,142 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    position: relative;
+    padding: 0.1px;
+    height: 100%;
+    min-width: 1200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.backImg {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    z-index: -1;
+}
+
+body>div:first-child {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+body>div:first-child>p::first-letter {
+    font-weight: bolder;
+    color: tomato;
+}
+
+#login-input {
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 1s;
+}
+
+#login-input:focus {
+    width: 300px;
+}
+
+#login-form button, #todo-form button {
+    height: 30px;
+    background-color: tomato;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0px 12px 0px 12px;
+}
+
+#login-form button:hover, #todo-form button:hover {
+    background-color: rgb(141, 23, 3);
+}
+
+body>div:nth-child(2) {
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    color: white;
+}
+
+#todo {
+    padding: 8px;
+    border-radius: 10px;
+    width: 250px;
+}
+
+#greeting h1 span {
+    font-size: 32px;
+    color: tomato;
+}
+
+ul {
+    padding-right: 15px;
+    margin-top: 25px;
+}
+
+ul li {
+    margin: 20px 0px;
+    cursor: pointer;
+}
+
+ul li span:hover {
+    color: tomato;
+    font-weight: bolder;
+}
+
+ul li button {
+    float: right;
+    background-color: tomato;
+    color: white;
+    border-radius: 3px solid white;
+    cursor: pointer;
+    font-size: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+ul li button:hover {
+    background-color: rgb(141, 23, 3);
+}
+
+#clock {
+    color: tomato;
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+#letterBox {
+    color: tomato;
+    position: absolute;
+    top: 850px;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    font-weight: bolder;
+}
+
+#weather {
+    color: tomato;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-weight: bolder;
+}
+
+.white {
+    color: white;
+}
+
