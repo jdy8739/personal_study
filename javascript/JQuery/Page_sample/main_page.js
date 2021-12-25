@@ -32,6 +32,7 @@ let itemId = 0;
 let items;
 let itemNames;
 let itemNamesCopied = [];
+
 setTimeout(function() {
     items = $('.card');
     itemNames = $('.card h3');
@@ -161,4 +162,54 @@ function changeQuantity() {
         tmpTotal += tmpPrice;
     }
     calTotalPrice(tmpTotal);
+}
+
+const receipt = $('.receipt-bg');
+
+$('#buy-btn').click(function() {
+    if(totalPrice != 0) makeReceipt();
+})
+
+$('.receipt-bg').on('click', function(event) {
+    if(this == event.target) receipt.fadeOut();
+})
+
+$('#cancel-btn').click(function() {
+    receipt.fadeOut();
+})
+
+
+function makeReceipt() {
+    receipt.fadeIn();
+    const canvas = document.getElementsByTagName('canvas')[0];
+    const final = canvas.getContext('2d');
+    final.font = '8px 맑은 고딕';
+
+    const tag = '영수증'
+    const now = new Date();
+    const date = `${ now.getFullYear() + ' ' + now.getMonth() + ' ' + now.getDate() 
+    + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() }`;
+    const expense = `총 금액: ${totalPrice}`
+
+    final.fillText(tag, 20, 10);
+    final.fillText(date, 60, 10);
+    makeItemsList(final);
+
+    final.fillText(expense, 20, 140);
+}
+
+function makeItemsList(final) {
+    const cartItems = $('.cart-item');
+
+    let list = '';
+
+    for(let i=0; i<cartItems.length; i++) {
+        const itemName = cartItems.eq(i).find('.item>h3').text();
+        const madeBy = cartItems.eq(i).find('p').eq(0).text();
+        const itemPrice = cartItems.eq(i).find('p').eq(1).text();
+        const itemQuantity = cartItems.eq(i).find('input').val();
+
+        final.fillText(itemName + ' ' + madeBy, 20, 30 * (i+1));
+        final.fillText(`가격:${itemPrice} 개수:${itemQuantity}`, 20, 30 * (i+1.5));
+    }
 }
