@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable</title>
+</head>
+<body>
+    <button id="sayHi">Hello World</button>
+    <script>
+        //Q1
+        const person = {
+            name: 'Saul',
+            sayHi: function() {
+                console.log(`Hi. My name is ${this.name}.`)
+            }
+        }
+        person.sayHi();
+
+        //Q2
+        let numbers = {
+            data: [1, 2, 3, 4, 5]
+        };
+
+        numbers.addAll = function() {
+            let sum = 0;
+            this.data.forEach(function(a){
+                sum += a;
+            });
+            console.log(sum);
+        };
+        numbers.addAll();
+
+        //Q3
+        const sayHi = document.querySelector('#sayHi');
+        sayHi.addEventListener('click', function() {
+            setTimeout(() => {
+                console.log(this.innerHTML);
+            }, 1000);
+        });
+
+    </script>
+</body>
+</html>
