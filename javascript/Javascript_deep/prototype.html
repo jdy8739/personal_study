@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype</title>
+</head>
+<body>
+    
+    <script>
+        // Q0
+        function StudentConstructor(name, age) {
+            this.name = name;
+            this.age = age;
+            this.sayHi = function() {
+                console.log(`Hi. I am ${name}!`);
+            }
+            this.sayHi();
+        }
+
+        const stu1 = new StudentConstructor('kim', 20);
+        const stu2 = new StudentConstructor('Park', 30);
+        const stu3 = new StudentConstructor('Lee', 40);
+        
+        // Q1
+        Array.prototype.remove3 = function() {
+            let cnt = 0;
+            this.forEach(a => {
+                if(a === 3) {
+                    this.splice(cnt, 1);
+                }
+                cnt ++;
+            });
+            console.log(this);
+        }
+
+        const arr = [1, 2, 3, 4];
+        arr.remove3();
+    </script>
+</body>
+</html>
