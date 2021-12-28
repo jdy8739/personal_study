@@ -84,7 +84,7 @@
             even: [],
             sorter: function(...nums) {
                 
-                nums.forEach(a => {
+                nums.forEach(a => { //여기서 function()하면 this는 window를 가르키게됨.
 
                     if(a % 2 === 0) this.even.push(a);
                     else this.odd.push(a);
@@ -99,10 +99,21 @@
                 this.even.sort((a, b) => a - b);
 
                 console.log('odd: ' + this.odd + ', even:' + this.even);
+            },
+
+            arrangeAll: function() {
+                const addedArr = [ ...this.odd, ...this.even ];
+
+                addedArr.sort((a, b) => {
+                    return a - b;
+                });
+
+                return [...addedArr]; //그냥 addedArr과 같음.
             }
         }
 
         data.sorter(1, 2, 5, 6, 7, 44, 4, 9, 8, 11);
         data.arranger();
+        console.log(data.arrangeAll());
     </script>
 </html>
