@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object_oriented</title>
+</head>
+<body>
+    
+    <script>
+        const products = [
+            { name : 'shirts', price : 50000 },
+            { name : 'pants', price : 60000 }
+        ];
+
+        function ProductConstructor(name, price) {
+            this.name = name;
+            this.price = price;
+            this.tax = this.price * 0.1;
+            this.showInfo = function() {
+                console.log(`product-info = name: ${this.name}, price: ${this.price}, tax: ${this.tax}`);
+            };
+            this.showInfo();
+        };
+
+        products.forEach(item => ProductConstructor(item.name, item.price));
+    </script>
+</body>
+</html>

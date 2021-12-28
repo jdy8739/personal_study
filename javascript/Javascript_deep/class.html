@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class</title>
+</head>
+<body>
+    
+</body>
+    <script>
+        // Q1
+        class Dog {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+
+            describe() {
+                console.log(`This dog is ${this.type} and has ${this.color} hair.`);
+            }
+
+            // Q3
+            get nextAge() {
+                const nextAge = this.age + 1;
+
+                if(isNaN(nextAge)) return 'Error!'; 
+                return nextAge;
+            }
+        }
+
+        const dogList = [ ['말티즈', 'white'], ['진돗개', 'brown'] ];
+
+        dogList.forEach(item => {
+            const dog = new Dog(item[0], item[1]);
+            dog.describe();
+            console.log(`This dog's next age is ${dog.nextAge}.`)
+        });
+
+        // Q2
+        class Cat extends Dog {
+            constructor(type, color, age) {
+                super(type, color);
+                this.age = age;
+            }
+
+            describe() { //오버라이딩
+                console.log(`This cat is ${this.type} and has ${this.color} hair. And it's age is ${this.age}`);
+            }
+        }
+
+        const catList = [ ['코숏', 'white', 5], ['러시안블루', 'brown', 2] ];
+
+        catList.forEach(item => {
+            const cat = new Cat(item[0], item[1], item[2]);
+            cat.describe();
+            console.log(`This cat's next age is ${cat.nextAge}.`)
+        });
+
+        // Q4
+        class Unit {
+            constructor() {
+                this.str = 5;
+                this.vit = 100;               
+            }
+            get battlePoint() {
+                const sum = this.str + this.vit;
+                console.log(sum);
+                return sum;
+            }
+            set heal(potion) {
+                this.vit += potion;
+            }
+        }
+
+        const unit = new Unit();
+        unit.heal = 30;
+        unit.battlePoint;
+
+        // Q5
+        const data = {
+            odd: [],
+            even: [],
+            sorter: function(...nums) {
+                
+                nums.forEach(a => {
+
+                    if(a % 2 === 0) this.even.push(a);
+                    else this.odd.push(a);
+                });
+            },
+
+            arranger: function() {
+                this.odd.sort(function(a, b) {
+                    //console.log(this); 여기의 this는 window
+                    return a - b;
+                });
+                this.even.sort((a, b) => a - b);
+
+                console.log('odd: ' + this.odd + ', even:' + this.even);
+            }
+        }
+
+        data.sorter(1, 2, 5, 6, 7, 44, 4, 9, 8, 11);
+        data.arranger();
+    </script>
+</html>
