@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+    <img id="test" src="https://codingapple1.github.io/kona.jpg"> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        // Q1
+        const img = document.querySelector('#test');
+
+        const promise = new Promise(function(resolve, reject) {
+
+            img.addEventListener('load', function() {
+                resolve();
+            });
+
+            img.addEventListener('error', function() {
+                reject();
+            });
+        });
+
+        promise.then(function() {
+            console.log('loaded!');
+        }).catch(function() {
+            console.log('An error has occured!');
+        });
+
+        // Q2, Q3
+        $.ajax({
+            url: 'https://codingapple1.github.io/hello.txt',
+            type: 'GET'
+        }).done(function(res1) {
+            console.log(res1);
+
+            let res2;
+
+            const promise2 = new Promise(function(resolve, reject) {
+
+                $.ajax({
+                    url: 'https://codingapple1.github.io/hello2.txt',
+                    type: 'GET'
+                }).done(res => {
+
+                    res2 = res;
+                    
+                    if(res2 != '') resolve();
+                    else reject();
+
+                }).fail(() => {
+                    reject();
+                });
+
+            })
+            
+            promise2.then(function() {
+                console.log(response);
+
+            }).catch(function() {
+               alert('Unvalid url1');
+            })
+
+        }).fail(function() {
+            alert('Unvalid url2');
+        });
+    </script>
+</body>
+</html>
