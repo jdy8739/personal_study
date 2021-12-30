@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForInForOf</title>
+</head>
+<body>
+    
+    <script>
+        // Q1
+        let data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        for(let i of data) {
+            for(let j of data) {
+                console.log(i * j);
+            }
+        };
+
+        // Q2
+        const products = [
+            {
+                name1 : 'chair',
+                price1 : 7000,
+            },
+            {
+                name2 : 'sofa',
+                price : 5000,
+            },
+            {
+                name1 : 'desk',
+                price3 : 9000,
+            }
+        ]; 
+
+        for(product of products) {
+            
+            for(key in product) {
+                
+                let lastChar = key.charAt(key.length - 1);
+
+                if(!isNaN(parseInt(lastChar))) {
+                    let newKey = key.slice(0, -1);
+                    product[newKey] = product[key];
+                    delete product[key];
+                }
+            }
+        };
+        console.log(JSON.stringify(products));
+    </script>
+</body>
+</html>
