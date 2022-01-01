@@ -8,7 +8,7 @@
             <button id="modalBtn" @click="removeModal">cancel</button>
             <span>
                 <span>계약 월</span> &ensp;
-                <input v-model="month" type="number">
+                <input v-model="month" type="number" min="1" max="12">
             </span>
             <p class="alert"></p>
         </div>
@@ -52,5 +52,9 @@ export default {
 input[type=number] {
     padding: 10px;
     width: 50px;
+}
+
+.alert {
+    color: red;
 }
 </style>
