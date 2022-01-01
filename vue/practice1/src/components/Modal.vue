@@ -25,7 +25,8 @@ export default {
     },
     data() {
         return {
-            month: 0
+            month: 0,
+            alert: ''
         }
     },
     methods: {
@@ -36,14 +37,18 @@ export default {
     watch: {
         month(a, b) {
             console.log(a, b);
-            const alert = document.querySelector('.alert');
+            //const alert = document.querySelector('.alert');
             if(a < 3) {
-                alert.innerText = `3달 이상 계약 가능!`;
+                this.alert.innerText = `3달 이상 계약 가능!`;
             } else {
-                alert.innerText = '';
+                this.alert.innerText = '';
             }
         }
-    }
+    },
+    mounted() {
+        const alert = document.querySelector('.alert');
+        this.alert = alert;
+    },
 }
 </script>
 
