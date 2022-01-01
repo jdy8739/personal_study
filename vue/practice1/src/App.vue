@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Modal v-if="isModalShown" :product="products[targetIndex]" @onRemoveModal="removeModal"/>
+    <transition name="slideOut">
+      <div class="hide" :class="{ show: isModalShown }">
+        <Modal v-if="isModalShown" :product="products[targetIndex]" @onRemoveModal="removeModal"/>
+      </div>
+    </transition>
     <div class="nav-bar">
       <div>
         <p>Ipsum Loren</p>
@@ -8,6 +12,14 @@
         <p>product</p>
         <p>contact</p>
       </div>
+    </div>
+    <div class="banner" v-if="showBanner">
+      <h2>Discout Rate <span>{{ discount }}</span>%</h2>
+    </div>
+    <div class="btn-sec">
+      <button @click="highToLow">high to low</button>
+      <button @click="lowToHigh">low to high</button>
+      <button @click="reset">reset</button>
     </div>
     <div class="list">
       <div v-for="(product, idx) in products" :key="idx" class="list-box">
@@ -32,18 +44,59 @@ export default {
     return {
       isModalShown: false,
       products: importedProducts,
-      targetIndex: -1
+      copiedPro: '',
+      targetIndex: -1,
+      showBanner: true,
+      discount: 30
     }
   },
   methods: {
     removeModal() {
+      // const modal = document.getElementsByClassName('hide')[0];
+      // modal.classList.toggle('show');
+
       this.isModalShown = false;
     },
     showModal($event) {
+      // const modal = document.getElementsByClassName('hide')[0];
+      // modal.classList.toggle('show');
+
       this.targetIndex = $event;
       this.isModalShown = true;
+    },
+
+    highToLow() {
+      this.products.sort((a, b) => {
+        return b.price - a.price;
+      });
+    },
+
+    lowToHigh() {
+      this.products.sort((a, b) => {
+        return a.price - b.price;
+      });
+    },
+
+    reset() {
+      this.products = [...this.copiedPro];
     }
-  }
+  },
+  mounted() {
+    this.copiedPro = [...this.products];
+
+    setTimeout(() =>  { //화살표 함수 안쓰면 this가 window를 가르키게됨
+      //this.showBanner = false;
+    }, 2000);
+
+    const disInterv = setInterval(() => {
+      this.discount --;
+
+      if(this.discount === 0) {
+        clearInterval(disInterv);
+        this.showBanner = false;
+      }
+    }, 1000);
+  },
 }
 </script>
 
@@ -127,8 +180,34 @@ p {
   box-sizing: border-box;
 }
 
+.hide {
+  transition: all 1s;
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+}
+
 .product-img {
   width: 100%;
+}
+
+.btn-sec {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn-sec button {
+  padding: 8px;
+  margin: 5px;
+}
+
+.banner {
+  background: cornflowerblue;
+  color: white;
+  text-align: center;
+  padding: 12px;
 }
 
 @media screen and (max-width: 1200px) {
