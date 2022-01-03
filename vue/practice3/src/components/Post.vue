@@ -4,9 +4,9 @@
             <div class="profile" :style="{ backgroundImage: `url(${ post.userImage })` }"></div>
             <span class="profile-name">{{ post.name }}</span>
         </div>
-        <div class="post-body" :style="{ backgroundImage: `url(${ post.postImage })` }"></div>
+        <div :class="`post-body ${post.filter} `" :style="{ backgroundImage: `url(${ post.postImage })` }" @click="likeOrDislike"></div>
         <div class="post-content">
-            <p>{{ post.likes }} &ensp; Likes</p>
+            <p>{{ $store.state.likes[idx].likes }} &ensp; Likes</p>
             <p><strong>{{ post.name }}</strong> {{ post.content }}</p>
             <p class="date">{{ post.date }}</p>
         </div>
@@ -20,6 +20,15 @@ export default {
         post: {
             type: Object,
             required: true
+        },
+        idx: {
+            type: Number,
+            required: true
+        }
+    },
+    methods: {
+        likeOrDislike() {
+            this.$store.commit('likeOrDislike', this.idx);
         }
     }
 }

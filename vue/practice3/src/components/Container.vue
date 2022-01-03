@@ -1,13 +1,15 @@
 <template>
     <div>
+        <p>{{ $store.state.age }}</p>
+        <button @click="plusAge">plusAge</button>
         <div v-if="step == 0">
-           <Post v-for="(post, idx) in posts" :key="idx" :post="post"/>
+           <Post v-for="(post, idx) in posts" :key="idx" :post="post" :idx="idx"/>
         </div>
         
         <div v-if="step == 1">
             <!-- 필터선택페이지 -->
             <div v-for="(image, idx) in images" :key="idx" class="mb-5">
-                <div class="upload-image" :style="{ backgroundImage: `url(${ image }` }"></div>
+                <div :class="`upload-image ${ filterName }`" :style="{ backgroundImage: `url(${ image }` }"></div>
                 <div class="filters">
                     <!-- <div class="filter-1"></div> -->
                     <FilterImage v-for="(filter, idx) in filters" :key="idx" :image="image" :filter="filters[idx]">
@@ -20,7 +22,7 @@
         <div v-if="step == 2">
             <!-- 글작성페이지 -->
             <div v-for="(image, idx) in images" :key="idx" class="mb-5">
-                <div class="upload-image" :style="{ backgroundImage: `url(${ image }` }"></div>
+                <div :class="`upload-image ${ filterName }`" :style="{ backgroundImage: `url(${ image }` }"></div>
                 <div class="write">
                     <textarea class="write-box" v-model="content">write!</textarea>
                 </div>
@@ -59,7 +61,8 @@ export default {
                 "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
                 "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
                 "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"
-            ]
+            ],
+            filterName: ''
         }
     },
     methods: {
@@ -87,14 +90,23 @@ export default {
                     date: date,
                     liked: false,
                     content: `${item.value}`,
-                    filter: "perpetua" 
+                    filter: this.filterName
                 };
 
                 posts.push(post);
             });
 
             this.$emit('publish', posts);
+        },
+
+        plusAge() {
+            this.$store.commit('plusAge', 2);
         }
+    },
+    mounted() {
+        this.emitter.on('useFilter', (filter) => {
+            this.filterName = filter;
+        });
     }
 }
 </script>

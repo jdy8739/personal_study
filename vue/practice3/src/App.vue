@@ -15,7 +15,7 @@
     <button @click="showMore" v-if="step === 0">show more</button>
     <div class="footer">
       <ul class="footer-button-plus">
-        <input type="file" id="file" class="inputfile" @input="uploadImg($event)" multiple/> <!-- @change도 상관없음 -->
+        <input type="file" id="file" class="inputfile" @input="uploadImg($event)"/> <!-- @change도 상관없음 -->
         <label for="file" class="input-plus">+</label>
       </ul>
     </div>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { posts } from './posts.js';
 import Container from './components/Container.vue';
 
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     showMore() {
-      axios.get(`https://codingapple1.github.io/vue/more${this.clickCnt}.json`)
+      this.axios.get(`https://codingapple1.github.io/vue/more${this.clickCnt}.json`)
         .then((res) => {
           this.posts.push(res.data);
           this.clickCnt ++;
@@ -91,6 +90,9 @@ export default {
 
       this.step = 0;
     }
+  },
+  mounted() {
+    alert(this.$store.state.name)
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="`filter-1 ${ filter }`" :style="{ backgroundImage: `url(${ image }` }">
+        <div :class="`filter-1 ${ filter }`" :style="{ backgroundImage: `url(${ image }` }" @click="useFilter($event)">
             <slot></slot>
         </div>
     </div>
@@ -16,6 +16,12 @@ export default {
         },
         filter: {
             type: String
+        }
+    },
+    methods: {
+        useFilter(event) {
+            const filterName = event.target.innerText;
+            this.emitter.emit('useFilter', filterName);
         }
     }
 }
