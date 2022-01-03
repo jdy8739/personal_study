@@ -2,6 +2,8 @@
     <div>
         <p>{{ $store.state.age }}</p>
         <button @click="plusAge">plusAge</button>
+        <button @click="getPost">execute store action</button>
+        <p>{{ $store.state.more }}</p>
         <div v-if="step == 0">
            <Post v-for="(post, idx) in posts" :key="idx" :post="post" :idx="idx"/>
         </div>
@@ -101,6 +103,9 @@ export default {
 
         plusAge() {
             this.$store.commit('plusAge', 2);
+        },
+        getPost() {
+            this.$store.dispatch('getPost')
         }
     },
     mounted() {
