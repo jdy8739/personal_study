@@ -8,6 +8,7 @@
           <li>Next</li>
         </ul>
       <img src="./assets/logo.png" class="logo" />
+      <button @click="step = 3">show followers</button>
     </div>
 
     <Container :posts="posts" :step="step" :images="images" @publish="onPublish($event)"/>
@@ -92,7 +93,7 @@ export default {
     }
   },
   mounted() {
-    alert(this.$store.state.name)
+    //alert(this.$store.state.name)
   }
 }
 </script>

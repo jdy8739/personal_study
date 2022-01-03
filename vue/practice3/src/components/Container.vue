@@ -2,6 +2,7 @@
     <div>
         <p>{{ $store.state.age }}</p>
         <button @click="plusAge">plusAge</button>
+        &emsp;
         <button @click="getPost">execute store action</button>
         <p>{{ $store.state.more }}</p>
         <div v-if="step == 0">
@@ -31,18 +32,25 @@
             </div>
             <button @click="publish">publish</button>
         </div>
+
+        <div v-if="step == 3">
+            <MyPage :followers="followers"/>
+        </div>
     </div>
 </template>
 
 <script>
 import Post from './Post.vue';
 import FilterImage from './FilterImage.vue';
+import MyPage from './MyPage.vue';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'Container',
     components: {
         Post,
-        FilterImage
+        FilterImage,
+        MyPage
     },
     props: {
         posts: {
@@ -67,7 +75,12 @@ export default {
             filterName: ''
         }
     },
+    computed: {
+        ...mapState(['followers'])
+    },
     methods: {
+        ...mapActions(['getFollowers']),
+
         publish() {
             const pics = document.querySelectorAll('.upload-image');
             let urls = [];
@@ -105,13 +118,15 @@ export default {
             this.$store.commit('plusAge', 2);
         },
         getPost() {
-            this.$store.dispatch('getPost')
+            this.$store.dispatch('getPost');
         }
     },
     mounted() {
         this.emitter.on('useFilter', (filter) => {
             this.filterName = filter;
         });
+
+        this.getFollowers();
     }
 }
 </script>
