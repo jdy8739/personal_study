@@ -36,6 +36,7 @@
   display: flex;
   align-items: center;
   min-width: 750px;
+  position: relative;
 }
 
 .nav-bar h3 {
@@ -78,6 +79,54 @@
 .btn-section button {
   margin: 8px;
 }
+
+.modal {
+  width: 70%;
+  min-width: 200px;
+  height: 250px;
+  background-color: #e2e5ec;
+  margin: 50px auto;
+  padding: 10px 30px;
+  border-radius: 8px;
+}
+
+.modal h3 {
+  text-align: center;
+  margin-bottom: 50px;;
+}
+
+.hamburgerMenu {
+  width: 35px;
+  height: 35px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hamburgerMenu>div {
+  width: 80%;
+  height: 3px;
+  background-color: #282c34;
+  margin: 3px 0px;
+}
+
+.menu-bar {
+  width: 100px;
+  height: 200px;
+  border-radius: 0px 0px 10px 10px;
+  border: 1px solid rgb(185, 185, 185);
+  background-color: white;
+  position: absolute;
+  top: 57px;
+  right: 40px;
+}
+
+
 
 @keyframes App-logo-spin {
   from {
