@@ -26,8 +26,8 @@ function App() {
   }
 
   function changeTitle() {
-    const newPosts = [...title]; //spread operator 필요
-    newPosts[0] = '여자코트 추천';
+    const newPosts = [...posts]; //spread operator 필요
+    newPosts[0] = ['여자코트 추천', '01 . 23. 2022'];
     alter(newPosts); //원래 자료형에 맞게 넣어야한다. 변경 함수에 직접 넣어야 재렌더링이 원할하게 된다. 재렌더링하려면 useState로 변수를 만들고 전용 값 바꾸기 함수로 바꿔줘야한다.
   }
 
@@ -39,15 +39,17 @@ function App() {
 
   let [showModal, showModalAlter] = useState(false);
 
-  function onShowModal() {
-    if(showModal) {
+  function onShowModal(i) {
+    csNumAlter(i);
+
+    if(showModal && chosenNum === i) {
       showModalAlter(false);
     } else {
       showModalAlter(true);
     }
   }
 
-  let [showMenu, showMenuAlter] = useState(false);
+  let [showMenu, showMenuAlter] = useState(true);
 
   function onShowMenu() {
     if(showMenu) {
@@ -56,6 +58,8 @@ function App() {
       showMenuAlter(true);
     }
   }
+
+  let [chosenNum, csNumAlter] = useState(0); 
 
   return (
     <div className="App">
@@ -99,9 +103,9 @@ function App() {
           <hr></hr>
         </div> */}
         {
-          posts.map(function(item, i) {
+          title.map(function(item, i) { //리액트 돔으로 자동 조작하고자하는 변수는 꼭 useState로 생성해야함. 일반 변수는 조작 불가.
             return (
-              <div key={item[0]}>
+              <div key={item[0]} onClick={ () => { onShowModal(i) } }>
                 <h5 className='title'>{ item[0] }&ensp;<span onClick={ () => { addLikes(i) } }>👍</span>&ensp;{ likedNum[i] }</h5>
                 <p className='date'>{ item[1] }</p>
                 <hr></hr>
@@ -111,7 +115,7 @@ function App() {
         }
         {
           showModal === true
-          ? <Modal></Modal>
+          ? <Modal title={title} chosenNum={chosenNum}></Modal>
           : null
         }
       </div>
@@ -121,13 +125,14 @@ function App() {
 
 //이렇게 <></>로 묶을 수도 있음
 
-function Modal() {
+function Modal(props) {
+  const idx = props.chosenNum;
   return (
     <> 
     <div className='modal'>
-      <h3>title</h3>
+      <h3>{ props.title[idx][0] }</h3>
       <p>content</p>
-      <p>date</p>
+      <p>{ props.title[idx][1] }</p>
     </div>
     </>
   )
