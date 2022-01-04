@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -29,13 +29,13 @@ function App() {
   }
 
   function changeTitle() {
-    const newPosts = [...posts]; //spread operator 필요
+    const newPosts = [...title]; //spread operator 필요
     newPosts[0] = ['여자코트 추천', '01 . 23. 2022'];
     alter(newPosts); //원래 자료형에 맞게 넣어야한다. 변경 함수에 직접 넣어야 재렌더링이 원할하게 된다. 재렌더링하려면 useState로 변수를 만들고 전용 값 바꾸기 함수로 바꿔줘야한다.
   }
 
   function arrangeTitle() {
-    const sortedPosts = [...posts].sort();
+    const sortedPosts = [...title].sort();
 
     alter(sortedPosts);
   }
@@ -152,6 +152,7 @@ function App() {
           : null
         }
       </div>
+      <Footer></Footer>
     </div>
   );
 }
@@ -183,6 +184,36 @@ function MenuBar() {
       </div>
     </div>
   )
+}
+
+class Footer extends React.Component {
+  constructor() {
+    super();
+    this.state = { title: 'This is the footer' }
+  }
+
+  changeFooterTitle = () => {
+    this.setState({ title: 'Hello React!' })
+  }
+
+  render() {
+    return (
+      <div className='footer'>
+        <br></br>
+        <h3>{ this.state.title }</h3>
+        <button onClick={ this.changeFooterTitle }>click me!</button>
+        <div></div>
+        <div className='footer-text'>
+          <p>Ipsum loren</p>
+          <p>Ipsum loren</p>
+          <p>Ipsum loren</p>
+          <p>Ipsum loren</p>
+          <p>Ipsum loren</p>
+          <p>Ipsum loren</p>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
