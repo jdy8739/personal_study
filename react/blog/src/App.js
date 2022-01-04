@@ -5,7 +5,9 @@ import './App.css';
 
 function App() {
 
-  const posts = [['First Post', '01 . 03. 2022'], ['Where i live', '01 . 04. 2022'], ['Dinner party review', '01 . 06. 2022']];
+  let posts = [['First Post', '01 . 03. 2022'], ['Where i live', '01 . 04. 2022'], ['Dinner party review', '01 . 06. 2022']];
+
+  const writtenTitle = document.querySelector('.write-title');
 
   const [ title, alter ] = useState(posts);
   // const [ title1, alter1 ] = useState( ['Second Post', '01 . 04. 2022'] );
@@ -13,7 +15,8 @@ function App() {
 
   let [ likedNum, likedNumAlter ] = useState([1, 2, 3]);
 
-  function addLikes(i) {
+  function addLikes(i, e) {
+    e.stopPropagation();
     const dupli = [...likedNum];
 
     // dupli.forEach((a, i, o) => {
@@ -40,6 +43,7 @@ function App() {
   let [showModal, showModalAlter] = useState(false);
 
   function onShowModal(i) {
+
     csNumAlter(i);
 
     if(showModal && chosenNum === i) {
@@ -49,7 +53,7 @@ function App() {
     }
   }
 
-  let [showMenu, showMenuAlter] = useState(true);
+  let [showMenu, showMenuAlter] = useState(false);
 
   function onShowMenu() {
     if(showMenu) {
@@ -60,6 +64,27 @@ function App() {
   }
 
   let [chosenNum, csNumAlter] = useState(0); 
+
+  let [newTitle, alterNewTitle] = useState('');
+
+  function publish(e) {
+    e.preventDefault();
+
+    const now = new Date();
+    const date = String(now.getDate()).padStart(2, '0');
+    const month = String(parseInt(now.getMonth()) + 1).padStart(2, '0');
+    const year = now.getFullYear();
+
+    const newPosts = [...title];
+    newPosts.push([ newTitle, `${month} . ${date}. ${year}` ]);
+    alter(newPosts);
+
+    const newLikedNums = [...likedNum];
+    newLikedNums.push(0);
+    likedNumAlter(newLikedNums);
+
+    writtenTitle.value = '';
+  }
 
   return (
     <div className="App">
@@ -105,14 +130,22 @@ function App() {
         {
           title.map(function(item, i) { //리액트 돔으로 자동 조작하고자하는 변수는 꼭 useState로 생성해야함. 일반 변수는 조작 불가.
             return (
-              <div key={item[0]} onClick={ () => { onShowModal(i) } }>
-                <h5 className='title'>{ item[0] }&ensp;<span onClick={ () => { addLikes(i) } }>👍</span>&ensp;{ likedNum[i] }</h5>
+              <div key={i} onClick={ () => { onShowModal(i); } }>
+                <h5 className='title'>{ item[0] }&ensp;<span className='thumb' onClick={ (e) => { addLikes(i, e); } }>👍</span>&ensp;{ likedNum[i] }</h5>
                 <p className='date'>{ item[1] }</p>
                 <hr></hr>
               </div>
             );
           })
         }
+        <div className='write-box'>
+          <h4>The title of new post</h4>
+          <form>
+            <input className='write-title' onInput={ (e) => { alterNewTitle(e.target.value); } } required/>
+            <br></br><br></br>
+            <button onClick={ publish }>publish</button>
+          </form>
+        </div>
         {
           showModal === true
           ? <Modal title={title} chosenNum={chosenNum}></Modal>

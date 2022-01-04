@@ -126,7 +126,18 @@
   right: 40px;
 }
 
+.thumb {
+  cursor: pointer;
+}
 
+.write-box {
+  text-align: center;
+}
+
+.write-title {
+  width: 80%;
+  padding: 8px;
+}
 
 @keyframes App-logo-spin {
   from {
