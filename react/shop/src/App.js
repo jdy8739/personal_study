@@ -6,10 +6,15 @@ import { Navbar, Container, DropdownButton, Dropdown, Button } from 'react-boots
 import products from './products';
 import { useState } from 'react';
 
+import { Detail } from './Components/Detail.js';
+import { useHistory } from 'react-router-dom';
+
+import { Link, Route, Switch } from 'react-router-dom';
+
 function App() {
 
   let [ productsData, prodAlter ] = useState(products);
-  
+    
   return (
     <div className="App">
       <>
@@ -43,31 +48,40 @@ function App() {
               <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
               <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
             </DropdownButton>
-            <Button href="#">Link</Button>
+            <button style={ { color: 'white' } }><Link to="/detail/0">detail</Link></button>
           </div>
         </div>
-        <br></br>
-        <div className='container'>
-          <div className='row'>
-            {
-              productsData.map((item, i) => {
-                return (
-                  <ProductList key={i} item={item}></ProductList>
-                )
-              })
-            }
+        <Route exact path="/">
+          <br></br>
+          <div className='container'>
+            <div className='row'>
+              {
+                productsData.map((item, i) => {
+                  return (
+                    <ProductList key={i} item={item}></ProductList>
+                  )
+                })
+              }
+            </div>
           </div>
-        </div>
+        </Route>
+        <Route path="/detail/:id">
+          <Detail shoes={ productsData }></Detail>
+        </Route>
       </>
     </div>
   );
 }
 
 
+
 function ProductList(props) {
   const product = props.item
+
+  let history = useHistory();
+
   return (
-    <div className='col-md-4'>
+    <div className='col-md-4' onClick={ () => { history.push(`/detail/${ product.id }`) } }>
       <div className='card product-box'>
         <img src={ product.imgSrc }></img>
         <p>{ product.title }&emsp;<span>{ product.price }</span></p>

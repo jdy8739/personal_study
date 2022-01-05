@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter } from 'react-router-dom'; //외부 라이브러리라 경로 x, HashRouter도 쓸 수 있음(안전한 라우팅)
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
