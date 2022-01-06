@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Navbar, Container, DropdownButton, Dropdown, Button } from 'react-bootstrap';
 import products from './products';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Detail } from './Components/Detail.js';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +12,10 @@ import { useHistory } from 'react-router-dom';
 import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
+
+  useEffect(() => {
+
+  }); 
 
   let [ productsData, prodAlter ] = useState(products);
     
