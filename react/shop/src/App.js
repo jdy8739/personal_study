@@ -4,20 +4,51 @@ import logo from './logo.svg';
 import './App.css';
 import { Navbar, Container, DropdownButton, Dropdown, Button } from 'react-bootstrap';
 import products from './products';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import { Detail } from './Components/Detail.js';
+import Detail from './Components/Detail.js';
 import { useHistory } from 'react-router-dom';
 
 import { Link, Route, Switch } from 'react-router-dom';
+
+import styled from 'styled-components';
+
+import Cart from './Components/Cart';
+import AgeCalculator from './Components/AgeCalcul.js';
+
+export let manuDateContext = React.createContext();
+
+
+const ShowMoreBtn = styled.button`
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+`;
 
 function App() {
 
   useEffect(() => {
 
-  }); 
+  }, [  ]); 
 
   let [ productsData, prodAlter ] = useState(products);
+
+  let [ productStock, stockAlter ] = useState([ 11, 24, 17 ]);
+
+  let [ manufacturedDate, alterManuDate ] = useState(['2021', '2020', '2022']);
+
+  function getMoreProducts() {
+    axios.get('https://codingapple1.github.io/shop/data2.json')
+      .then((res) => {
+        
+        const addedProducts = [ ...productsData, ...res.data ];
+        prodAlter(addedProducts);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
     
   return (
     <div className="App">
@@ -67,10 +98,19 @@ function App() {
                 })
               }
             </div>
+            <ShowMoreBtn className='mt-5' onClick={ getMoreProducts }>Show More</ShowMoreBtn>
           </div>
         </Route>
-        <Route path="/detail/:id">
-          <Detail shoes={ productsData }></Detail>
+        <manuDateContext.Provider value={ manufacturedDate }>
+          <Route path="/detail/:id">
+            <Detail shoes={ productsData } productStock={ productStock } stockAlter={ stockAlter }></Detail>
+          </Route>
+        </manuDateContext.Provider>
+        <Route exact path="/cart">
+          <Cart/>
+        </Route>
+        <Route exact path="/calc_age">
+          <AgeCalculator/>
         </Route>
       </>
     </div>

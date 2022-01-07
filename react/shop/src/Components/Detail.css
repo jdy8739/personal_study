@@ -1,0 +1,30 @@
+.pop-enter {
+    opacity: 0.1;
+}
+
+.pop-enter-active {
+    opacity: 1;
+    transition: all 1s;
+    color: red;
+}
+
+.alert-box {
+    background-color: rgb(255, 42, 42, 0.3);
+    width: 50%;
+    height: 50px;
+    border-radius: 12px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(31, 1, 1);
+}
+
+.alert-box p {
+    margin: 0;
+}
+
+.alert-box button {
+    border: none;
+    padding: 2px 8px;
+}
