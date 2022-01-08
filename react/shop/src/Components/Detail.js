@@ -34,6 +34,8 @@ const AlertText = styled.p`
 
 function Detail(props) {
 
+    const [sessStore, altSessStore] = useState([]);
+
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -41,6 +43,8 @@ function Detail(props) {
     let history = useHistory();
 
     let [showAlert, alterShowAlert] = useState(true); 
+
+    const idx = props.shoes.findIndex(item => item.id == parseInt(id));
 
     useEffect(function() {
         const timer = setTimeout(function() {
@@ -51,6 +55,34 @@ function Detail(props) {
     }, [ showAlert ]); //여기 대괄호 안의 state가 변경될 때만 해당 useEffect가 작동하게 만들 수 있음. 그럼 mounted용 useEffect는 따로 만들면됨.
 
     useEffect(function() {
+
+        const seenItem = JSON.parse(sessionStorage.getItem('seenItem'));
+        const newItemName = props.shoes[idx].title;
+
+        if(seenItem === null) {
+            const newItem = [];
+            newItem.push({ name: newItemName });
+            sessionStorage.setItem('seenItem', JSON.stringify(newItem));
+            altSessStore(newItem);
+            return;
+        }
+
+        for(let item of seenItem) {
+            if(item.name === newItemName) {
+
+                const idx = seenItem.findIndex(a => a.name === newItemName);
+                seenItem.splice(idx, 1);
+                seenItem.push({ name: newItemName });
+                sessionStorage.setItem('seenItem', JSON.stringify(seenItem));
+                altSessStore(seenItem);
+                return;
+            }
+        }
+
+        seenItem.push({ name: newItemName });
+        sessionStorage.setItem('seenItem', JSON.stringify(seenItem));
+        altSessStore(seenItem);
+
     }, [ ]); //안에 아무것도 안넣으면 mounted 시에만 작동.
 
     let [inputText, alterInputText] = useState('');
@@ -59,8 +91,6 @@ function Detail(props) {
         const inputText = e.target.value;
         alterInputText(inputText);
     }
-
-    const idx = props.shoes.findIndex(item => item.id == parseInt(id));
 
     let manuDateList = useContext(manuDateContext);
 
@@ -140,6 +170,15 @@ function Detail(props) {
             <CSSTransition in={ tabSwitch } classNames="pop" timeout={ 1000 }>
                 <TabContent tabNum={ tabNum } alterTabSwitch = {alterTabSwitch}/>
             </CSSTransition>
+            {
+                sessStore.map((a, i) => {
+                    return (
+                        <div key={i}>
+                            {i}번째 본 상품명: {a.name}
+                        </div>
+                    )
+                })
+            }
         </div> 
         </>
     );

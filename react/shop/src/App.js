@@ -4,18 +4,22 @@ import logo from './logo.svg';
 import './App.css';
 import { Navbar, Container, DropdownButton, Dropdown, Button } from 'react-bootstrap';
 import products from './products';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, lazy, Suspense } from 'react';
 import axios from 'axios';
 
-import Detail from './Components/Detail.js';
 import { useHistory } from 'react-router-dom';
 
 import { Link, Route, Switch } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import Cart from './Components/Cart';
-import AgeCalculator from './Components/AgeCalcul.js';
+// import Detail from './Components/Detail.js';
+// import Cart from './Components/Cart';
+// import AgeCalculator from './Components/AgeCalcul.js';
+
+let Detail = lazy(() => { return import('./Components/Detail.js') });
+let Cart = lazy(() => { return import('./Components/Cart.js') });
+let AgeCalculator = lazy(() => { return import('./Components/AgeCalcul.js') });
 
 export let manuDateContext = React.createContext();
 
@@ -103,15 +107,22 @@ function App() {
         </Route>
         <manuDateContext.Provider value={ manufacturedDate }>
           <Route path="/detail/:id">
-            <Detail shoes={ productsData } productStock={ productStock } stockAlter={ stockAlter }></Detail>
+            <Suspense fallback={ <div>로딩중...</div> }>
+              <Detail shoes={ productsData } productStock={ productStock } stockAlter={ stockAlter }></Detail>
+            </Suspense>
           </Route>
         </manuDateContext.Provider>
         <Route exact path="/cart">
-          <Cart/>
+          <Suspense fallback={ <div>로딩중...</div> }>
+            <Cart/>
+          </Suspense>
         </Route>
         <Route exact path="/calc_age">
-          <AgeCalculator/>
+          <Suspense fallback={ <div>로딩중...</div> }>
+            <AgeCalculator/>
+          </Suspense>
         </Route>
+        <Parent a={'a'} b={'b'}></Parent> { /* 여기서 props를 하나라도 변경하면 props가 바뀌지않는 하위 컴포넌트도 전부 재렌더링됨. */ }
       </>
     </div>
   );
@@ -134,4 +145,42 @@ function ProductList(props) {
     </div>
   );
 }
+
+
+const Parent = function(props) {
+  return (
+    <>
+      <Child1 a={props.a}></Child1>
+      <Child2 b={props.b}></Child2>
+    </>
+  )
+};
+
+const Child1 = memo(function(props) { //memo로 감싸면 실제 이 컴포넌트가 받는 props의 값이 변경될 때만 재렌더링됨.
+
+  useEffect(() => {
+    console.log(props.a)
+  });
+
+  return (
+    <div>{props.a}</div>
+  )
+});
+
+const Child2 = memo(function(props) {
+
+  useEffect(() => {
+    console.log(props.b)
+  });
+
+  return (
+    <div>{props.b}</div>
+  )
+});
+
+
+
+
+
+
 export default App;
