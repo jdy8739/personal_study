@@ -1,0 +1,56 @@
+
+.App {
+  text-align: center;
+}
+
+.nav-bar {
+  width: 100%;
+  height: 60px;
+  background-color: bisque;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.blog-title {
+  font-weight: bold;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.nav-bar p {
+  padding: 20px;
+}
+
+.post-card {
+  border: 1px solid black;
+  height: 120px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  width: 28%;
+  margin: 12px;
+}
+
+.post-card:hover {
+  border: 2px solid salmon;
+}
+
+.modal {
+  width: 70%;
+  height: 140px;
+  background-color: rgb(112, 128, 144, 0.2);
+  border-radius: 8px;
+  margin: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .post-card {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post-card {
+    width: 85%;
+  }
+}
