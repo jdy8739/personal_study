@@ -2,7 +2,9 @@ import '../App.css';
 
 function Post(props) {
 
-    function addThumbs() {
+    function addThumbs(e) {
+        e.stopPropagation();
+        
         const newThumbs = [...props.content];
         newThumbs[props.idx].thumbs ++;
 
