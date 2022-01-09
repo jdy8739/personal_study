@@ -3,16 +3,39 @@
 import logo from './logo.svg';
 import './App.css';
 import { Container, Row, Col, Button, Navbar, Nav, Card } from 'react-bootstrap';
-import products from './product';
+import importedProducts from './product';
 import { Link, Route, Switch } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
   const red = { backgroundColor: 'red' };
   const pink = { backgroundColor: 'pink' };
   const green = { backgroundColor: 'green' };
 
+  const [products, altProducts] = useState(importedProducts);
+
   let history = useHistory();
+
+  function highToLowAlign() {
+    const aligned = [...products].sort(function(a, b) {
+      return b.price - a.price;
+    });
+
+    altProducts(aligned);
+  }
+
+  function lowToHighAlign() {
+    const aligned = [...products].sort(function(a, b) {
+      return a.price - b.price;
+    });
+
+    altProducts(aligned);
+  }
+
+  function reset() {
+    altProducts(importedProducts);
+  }
 
   return (
     <Switch>
@@ -42,11 +65,11 @@ function App() {
           <div>This is a Main Page.</div>
         </Route>
         <Route exact path='/products'>
-          <div className='contatiner'>
+          <div className='container'>
             <div className='row'>
-              <p style={ red } className='col-md-4'>x</p>
-              <p style={ pink } className='col-md-4'>x</p>
-              <p style={ green } className='col-md-4'>x</p>
+              <p style={ red } className='col-md-4' onClick={ highToLowAlign }>High to Low</p>
+              <p style={ pink } className='col-md-4' onClick={ lowToHighAlign }>Low to High</p>
+              <p style={ green } className='col-md-4' onClick={ reset }>Reset</p>
             </div>
             <div className='row'>
               {
