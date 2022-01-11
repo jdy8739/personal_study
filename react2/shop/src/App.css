@@ -7,6 +7,15 @@
   pointer-events: none;
 }
 
+.pop-enter {
+  opacity: 0.1;
+}
+
+.pop-enter-active {
+  opacity: 1;
+  transition: all 1s;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

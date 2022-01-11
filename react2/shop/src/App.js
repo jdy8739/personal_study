@@ -2,15 +2,23 @@
 
 import logo from './logo.svg';
 import './App.css';
-import { Container, Row, Col, Button, Navbar, Nav, Card } from 'react-bootstrap';
+import { Container, Row, Col, Button, Navbar, Nav, Card, Table } from 'react-bootstrap';
 import importedProducts from './product';
 import { Link, Route, Switch } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { CSSTransition } from 'react-transition-group';
 
-function App() {
+import { connect } from 'react-redux';
+
+import Cart from './Cart.js';
+import AboutUs from './AboutUs';
+
+const stockContext = React.createContext();
+
+function App(props) {
   const red = { backgroundColor: 'red' };
   const pink = { backgroundColor: 'pink' };
   const green = { backgroundColor: 'green' };
@@ -62,6 +70,7 @@ function App() {
             <Nav.Link href="#/">Home</Nav.Link>
             <Nav.Link href="#/products">Products</Nav.Link>
             <Nav.Link href="#/about_us">About us</Nav.Link>
+            <Nav.Link href="#/cart">Cart</Nav.Link>
           </Nav>
           </Container>
         </Navbar>
@@ -101,7 +110,19 @@ function App() {
           </div>
         </Route>
         <Route exact path='/detail/:id'> { /* component={Detail}> */ }
-          <Detail products={products} stock={stock} altStock={altStock}/>
+          
+          <stockContext.Provider value={stock}>
+            <Detail products={products} stock={stock} altStock={altStock}/>
+          </stockContext.Provider>
+
+        </Route>
+
+        <Route path='/cart'>
+          <Cart/>
+        </Route>
+
+        <Route path='/about_us'>
+          <AboutUs/>
         </Route>
       </div>
     </Switch>
@@ -156,12 +177,14 @@ function Detail(props) {
   let history = useHistory();
   let { id } = useParams();
 
-
   function subStock() {
     const subedStock = [...props.stock];
     subedStock[id] --;
     props.altStock(subedStock);
   }
+
+  const [tabNumber, altTabNumber] = useState(0);
+  const [change, altChange] = useState(false);
 
   return (
     <>
@@ -190,21 +213,73 @@ function Detail(props) {
             <button className="btn btn-danger" onClick={ () => { history.push('/products'); } }>
               모든 상품 보기
             </button>
-            <Stock stock={props.stock[id]}/>
+            <Stock stock={props.stock[id]} id={id}/>
           </div>
         </div>
-      </div> 
+      </div>
+      <Nav fill variant="tabs" defaultActiveKey="/">
+        {
+          [1, 2, 3].map((a, i) => {
+            return (       
+              <div key={ i }>
+                <Nav.Item>
+                  <Nav.Link eventKey={ `eventKey-${ i }` } onClick={ () => { altTabNumber(i); altChange(false); } }>{ a }</Nav.Link>
+                </Nav.Item>
+              </div>
+            )
+          })
+        }
+      </Nav>
+      <CSSTransition in={ change } classNames='pop' timeout = { 1000 }>
+        <TabContent tabNumber={ tabNumber } altChange={ altChange }/>
+      </CSSTransition>
     </>
   )
+}
+
+
+function TabContent(props) {
+
+  useEffect(function() {
+    props.altChange(true);
+  });
+
+  if(props.tabNumber === 0) {
+    return (
+      <>
+        <p>Content 0</p>
+      </>
+    )
+  }
+  if(props.tabNumber === 1) {
+    return (
+      <>
+        <p>Content 1</p>
+      </>
+    )
+  }
+  if(props.tabNumber === 2) {
+    return (
+      <>
+        <p>Content 2</p>
+      </>
+    )
+  }
 }
 
 
 function Stock(props) {
+  
+  const stock = useContext(stockContext);
+
   return (
     <>
       <p className='mt-5'>남은 재고 { props.stock }개</p>
+      <p>useContext로 전송한 재고 { stock[props.id] }</p>
     </>
   )
 }
 
+
 export default App;
+export { AlertBox };
