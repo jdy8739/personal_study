@@ -25,6 +25,7 @@
   transform: translate(1, -12%);
   transition: all 0.5s;
   cursor: pointer;
+  box-shadow: 5px 5px 10px #dddddd;
 }
 
 .movie-box:hover {
@@ -52,6 +53,12 @@
 .movie-content>img {
   margin-right: 20px;
   border-radius: 8px;
+  transition: all 1s;
+  box-shadow: 5px 5px 25px rgb(126, 126, 126);
+}
+
+.movie-box:hover .movie-content>img {
+  transform: translateY(-15px);
 }
 
 .movie-content>div>h3 {
