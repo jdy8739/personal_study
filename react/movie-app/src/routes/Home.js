@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     axios.get('https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year')
       .then(res => {
-        console.log(res.data.data.movies);
+        // console.log(res.data.data.movies);
         setMovies(res.data.data.movies);
       })
   }, []);
@@ -25,7 +25,7 @@ function Home() {
               return (
                 <div key={i}>
                   <Movie bg={movie.background_image_original} movieImg={movie.medium_cover_image} title={movie.title} year={movie.year}
-                  summary={movie.summary} genres={movie.genres}/>
+                  summary={movie.summary} genres={movie.genres} id={movie.id}/>
                 </div>
               )
             })

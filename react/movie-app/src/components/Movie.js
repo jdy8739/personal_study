@@ -1,26 +1,28 @@
 import '../App.css';
+import { Link } from 'react-router-dom';
 
-function Movie(props) {
+function Movie({ movieImg, title, year, summary, genres, bg, id }) {
     return (
         <>
             <div className="movie-box">
                 <div className='movie-content'>
-                <img src={ `${ props.movieImg }` }></img>
-                <div>
-                    <h3>{ props.title } { props.year }</h3>
-                    <p>{ props.summary }</p>
-                </div>
+                    <img src={ `${ movieImg }` }></img>
+                    <div>
+                        <h3><Link to={ `/detail/${ id }` }>{ title } { year }</Link></h3>
+                        {/* a 태그는 새로고침되므로 Link to 가 좋음 */}
+                        <p>{ summary }</p>
+                    </div>
                 </div>
                 <ul>
                 {
-                    props.genres.map((genre, i) => {
-                    return (
-                        <li key={i}>{ genre }</li>
-                    )
+                    genres.map((genre, i) => {
+                        return (
+                            <li key={i}>{ genre }</li>
+                        )
                     })
                 }
                 </ul>
-                <div className='movie-bg-img' style={{ backgroundImage: `url(${props.bg})` }}></div>
+                <div className='movie-bg-img' style={{ backgroundImage: `url(${bg})` }}></div>
             </div>
         </>
     )
