@@ -31,7 +31,7 @@ let 학교 :{
 const foo = (a :number, b :number) => a * b;
 
 function foo2(a :number, b? :number) :void {
-    alert(a * b);
+    if(b !== undefined) alert(a * b);
 };
 
 
@@ -96,7 +96,7 @@ function filterSubj(subject :subj) :string {
     } else if(Array.isArray(tgSub)) {
         return tgSub[ tgSub.length - 1];    
     }
-    return;
+    return '';
 };
 
 

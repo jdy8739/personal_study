@@ -16,7 +16,8 @@ var 학교 = {
 학교.friend = ['Lee', 학교.teacher];
 var foo = function (a, b) { return a * b; };
 function foo2(a, b) {
-    alert(a * b);
+    if (b !== undefined)
+        alert(a * b);
 }
 ;
 //Q1
@@ -76,7 +77,7 @@ function filterSubj(subject) {
     else if (Array.isArray(tgSub)) {
         return tgSub[tgSub.length - 1];
     }
-    return;
+    return '';
 }
 ;
 var a1 = { color: 'a', size: 12, position: [1, 2, 3] };
