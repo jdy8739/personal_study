@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
+import { fetchCoins } from "../api";
+import CoinList from '../components/CoinList';
 
 
 const TitleBox = styled.div`
@@ -14,7 +17,7 @@ const Title = styled.h1`
 
 function Coin() {
 
-    interface CoinArr {
+    interface ICoin {
         id: string,
         name: string,
         symbol: string,
@@ -23,20 +26,8 @@ function Coin() {
         is_active: boolean,
         type: string
     }
-
-    const [coinArr, setCoinArr] = useState<CoinArr[]>([]);
-
-    useEffect(() => {
-        axios.get('https://api.coinpaprika.com/v1/coins')
-            .then(res => {
-                const tmpArr: CoinArr[] = [];
-                for(let i=0; i<100; i++) {
-                    tmpArr.push(res.data[i]);
-                }
-                setCoinArr(tmpArr);
-            })
-            .catch(err => console.log(err));
-    }, []);
+    
+    const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
 
     return (
         <>  
@@ -46,10 +37,13 @@ function Coin() {
                 <button>click me</button>
             </TitleBox>
             {
-                coinArr.map((a, i) => {
+                isLoading ?
+                <div>로딩중...</div>
+                :
+                data?.slice(0, 100).map((coin, i) => {
                     return (
                         <div key={i}>
-                            { a.name }
+                            <CoinList coinName={coin.name} coinId={coin.id} symbol={coin.symbol}/>
                         </div>
                     )
                 })

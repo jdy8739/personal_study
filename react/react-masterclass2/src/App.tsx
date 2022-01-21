@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Coin from './routes/Coin';
 import Coins from './routes/Coins';
 import GlobalStyles from './ResetCss';
-
+import { ReactQueryDevtools } from "react-query/devtools";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
             </Route>
           </Switch>
         </BrowserRouter>
+        <ReactQueryDevtools/>
       </div>
     </>
   );

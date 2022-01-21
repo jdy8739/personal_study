@@ -56,6 +56,10 @@ const globalStyles = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a {
+    text-decoration: none;
+    color: ${ props => props.theme.textColor };
+  }
 `;
 
 export default globalStyles;
