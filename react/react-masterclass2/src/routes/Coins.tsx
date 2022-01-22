@@ -8,6 +8,7 @@ import Price from "./Price";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTicker } from "../api";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
     width: 100%;
@@ -98,8 +99,11 @@ function Coins() {
 
     return (
         <>  
+            <Helmet>
+                <title>{ state?.name ?? coinInfo?.name }</title>
+            </Helmet>
             <Container>
-                <Title>{ state?.name ?? 'loading...' }</Title>
+                <Title>{ state?.name ?? coinInfo?.name }</Title>
                 <br></br>
                 <SubTitle>
                     <p>Coins { coinId }</p>
@@ -127,11 +131,14 @@ function Coins() {
                 }
                 <br></br>
                 <TabContainer>
-                    <TabBtn isActive={ priceMatch !== null }>
+                    <TabBtn isActive={ chartMatch !== null }>
                         <Link to={`/detail/${coinId}/chart`}><p>Chart</p></Link>
                     </TabBtn>
-                    <TabBtn isActive={ chartMatch !== null }>
+                    <TabBtn isActive={ priceMatch !== null }>
                         <Link to={`/detail/${coinId}/price`}><p>Price</p></Link>
+                    </TabBtn>
+                    <TabBtn>
+                        <Link to='/'><p>Back</p></Link>
                     </TabBtn>
                 </TabContainer>
                 <Switch>
@@ -139,7 +146,7 @@ function Coins() {
                         <Chart coinId={coinId}/>
                     </Route>
                     <Route path={`/detail/:coinId/price`}>
-                        <Price/>
+                        <Price coinId={coinId}/>
                     </Route>
                 </Switch>
             </Container>
@@ -148,6 +155,7 @@ function Coins() {
 };
 
 export default Coins;
+
 
 const Overview = styled.div`
     width: 400px;
@@ -185,15 +193,15 @@ const TabContainer = styled.div`
     justify-content: space-between;
 `;
 
-const TabBtn = styled.div<{ isActive: boolean }>`
+const TabBtn = styled.div<{ isActive?: boolean }>`
     background-color: #282c34;
-    width: 48%;
+    width: 30%;
     height: 30px;
     border-radius: 8px;
     p {
         margin-top: 5px;
         transition: all 0.5s;
-        color: ${ props => props.isActive ? props.theme.textColor : props.theme.btnColor };
+        color: ${ props => props.isActive ? props.theme.btnColor : props.theme.textColor };
     }
 `;
 

@@ -9,18 +9,18 @@ const ChartForm = styled.div`
     margin: 60px auto;
 `;
 
-function Chart({ coinId }: { coinId: string }) {
+export interface IChart {
+    close: number
+    high: number
+    low: number
+    market_cap: number
+    open: number
+    time_close: string
+    time_open: string
+    volume: number
+}
 
-    interface IChart {
-        close: number
-        high: number
-        low: number
-        market_cap: number
-        open: number
-        time_close: string
-        time_open: string
-        volume: number
-    }
+function Chart({ coinId }: { coinId: string }) {
 
     const { isLoading, data } = useQuery<IChart[]>('coinChart', () => { return fetchCoinChart(coinId) });
 
@@ -78,3 +78,4 @@ function Chart({ coinId }: { coinId: string }) {
 }
 
 export default Chart;
+export { ChartForm };

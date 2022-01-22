@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import CoinList from '../components/CoinList';
+import { Helmet } from "react-helmet";
 
 
 const TitleBox = styled.div`
@@ -30,7 +31,9 @@ function Coin() {
     const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
 
     return (
-        <>  
+        <>  <Helmet>
+                <title>All COINS</title>
+            </Helmet>
             <TitleBox>
                 <Title>Coin</Title>
                 <br></br>
