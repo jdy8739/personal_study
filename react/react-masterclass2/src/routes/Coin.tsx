@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { fetchCoins } from "../api";
 import CoinList from '../components/CoinList';
 import { Helmet } from "react-helmet";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 
 const TitleBox = styled.div`
@@ -29,6 +31,11 @@ function Coin() {
     }
     
     const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+    const setUsDarkAtom = useSetRecoilState(isDarkAtom);
+
+    const toggleTheme = function() {
+        setUsDarkAtom(theme => !theme);
+    };
 
     return (
         <>  <Helmet>
@@ -37,7 +44,7 @@ function Coin() {
             <TitleBox>
                 <Title>Coin</Title>
                 <br></br>
-                <button>click me</button>
+                <button onClick={toggleTheme}>toggle theme</button>
             </TitleBox>
             {
                 isLoading ?
