@@ -68,7 +68,7 @@ function Board({ todos, id }: { todos: ITodo[], id: string }) {
                     {
                         todos.map((item, index) => {
                             return (
-                            <Card item={ item.todo } id={ item.id } index={ index } key={ index }/>
+                            <Card item={ item.todo } id={ item.id } index={ index } key={ index } subject={ id }/>
                             )
                         })
                     }

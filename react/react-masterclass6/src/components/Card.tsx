@@ -1,6 +1,8 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { arr, ITodoList } from "../atoms";
 
 const CardForm = styled.div<{ isDragging: boolean }>`
   background-color: ${ props => props.isDragging ? 'tomato' : 'white' };
@@ -11,9 +13,30 @@ const CardForm = styled.div<{ isDragging: boolean }>`
   box-sizing: border-box;
   margin: 4px 0px;
   box-shadow: ${ props => props.isDragging ? '12px 12px 2px 1px rgba(0, 0, 255, .2)' : 'none' };
+  position: relative;
 `;
 
-function Card({ item, index, id }: { item: string, index: number, id: number }) {
+const DelBtn = styled.button`
+  position: absolute;
+  right: 10px;
+  top: 11px;
+  border: none;
+  cursor: pointer;
+`;
+
+function Card({ item, index, id, subject }: { item: string, index: number, id: number, subject: string }) {
+
+    const setTodoList = useSetRecoilState(arr);
+
+    const deleteTodo = (id: number) => {
+        setTodoList(function(oldTodos) {
+            const copied = [...oldTodos[subject]];
+            const targetIndex = copied.findIndex(todo => todo.id === id);
+            copied.splice(targetIndex, 1);
+            return { ...oldTodos, [subject]: copied };
+        });
+    };
+
     return (
         <>
             <Draggable draggableId={ id + '' } index={ index } key={ id + '' }>
@@ -24,7 +47,10 @@ function Card({ item, index, id }: { item: string, index: number, id: number }) 
                     {...provided.dragHandleProps} 
                     {...provided.draggableProps}
                     isDragging={ effect.isDragging }
-                    >{ item }</CardForm>
+                    >
+                        { item }
+                        <DelBtn onClick={ () => { deleteTodo(id) } }>x</DelBtn>
+                    </CardForm>
                 }
             </Draggable>
         </>

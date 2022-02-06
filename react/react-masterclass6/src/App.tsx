@@ -5,6 +5,7 @@ import Card from './components/Card';
 import { arr } from './atoms';
 import { useRecoilState } from 'recoil';
 import Board from './components/Board';
+import Trash from './components/Trash';
 
 const mtStyle = { 
   display: 'flex',
@@ -14,12 +15,22 @@ const mtStyle = {
  };
 
 
+
+
 function App() {
 
   const [ todoList, setTodoList ] = useRecoilState(arr);
 
   const handleOnDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if(!destination) return;
+    if(destination.droppableId === 'trash-box') {
+      setTodoList((oldTodos) => {
+        const copied = [...oldTodos[source.droppableId]];
+        copied.splice(source.index, 1);
+        return { ...oldTodos, [source.droppableId]: copied };
+      });
+      return;
+    }
     if(destination?.droppableId === source.droppableId) {
       setTodoList((oldTodos) => {
         const copied = [...oldTodos[source.droppableId]];
@@ -56,6 +67,7 @@ function App() {
             })
           }
         </div>
+        <Trash />
       </DragDropContext>
     </div>
   );
