@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Droppable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { arr, ITodo } from "../atoms";
@@ -20,7 +20,7 @@ const BoardForm = styled.div<IBoardFormProps>`
   padding: 12px;
 `;
 
-function Board({ todos, id }: { todos: ITodo[], id: string }) {
+function Board({ todos, id, index }: { todos: ITodo[], id: string, index: number }) {
 
     const [ newTodoText, setNewTodoText ] = useState('');
 
@@ -43,39 +43,53 @@ function Board({ todos, id }: { todos: ITodo[], id: string }) {
 
     return (
         <>  
-            <Droppable droppableId={ id }>
+            <Draggable draggableId={ id + '' } index={ index } key={ id + '' }>
                 {
-                (provided, effect) =>
-                <BoardForm 
-                ref={provided.innerRef} 
-                {...provided.droppableProps} 
-                isDraggingOver={ effect.isDraggingOver }
-                isDraggingFrom={ Boolean(effect.draggingFromThisWith) }
-                >   
-                    <div style={{ color: 'black', textAlign: 'center', marginBottom: '15px' }}>
-                        <h3>{ id }</h3>
-                        <form onSubmit={addNewTodo}>
-                            <input 
-                            placeholder={`Input new ${ id }.`} 
-                            onChange={ handleOnChange } 
-                            value={ newTodoText }
-                            required
-                            />
-                            &ensp;
-                            <button type="submit">ADD</button>
-                        </form>
+                    (provided) =>        
+                    <div 
+                    ref={provided.innerRef} 
+                    { ...provided.dragHandleProps }
+                    { ...provided.draggableProps }
+                    >
+                        <Droppable 
+                        droppableId={ id }
+                        type={ true ? 'active' : 'none' }
+                        >
+                            {
+                                (provided, effect) =>
+                                <BoardForm 
+                                ref={provided.innerRef} 
+                                {...provided.droppableProps} 
+                                isDraggingOver={ effect.isDraggingOver }
+                                isDraggingFrom={ Boolean(effect.draggingFromThisWith) }
+                                >   
+                                    <div style={{ color: 'black', textAlign: 'center', marginBottom: '15px' }}>
+                                        <h3>{ id }</h3>
+                                        <form onSubmit={addNewTodo}>
+                                            <input 
+                                            placeholder={`Input new ${ id }.`} 
+                                            onChange={ handleOnChange } 
+                                            value={ newTodoText }
+                                            required
+                                            />
+                                            &ensp;
+                                            <button type="submit">ADD</button>
+                                        </form>
+                                    </div>
+                                    {
+                                        todos.map((item, index) => {
+                                            return (
+                                            <Card item={ item.todo } id={ item.id } index={ index } key={ index } subject={ id }/>
+                                            )
+                                        })
+                                    }
+                                    { provided.placeholder }
+                                </BoardForm>
+                            }
+                        </Droppable>
                     </div>
-                    {
-                        todos.map((item, index) => {
-                            return (
-                            <Card item={ item.todo } id={ item.id } index={ index } key={ index } subject={ id }/>
-                            )
-                        })
-                    }
-                    { provided.placeholder }
-                </BoardForm>
                 }
-            </Droppable>
+            </Draggable>
         </>
     )
 }

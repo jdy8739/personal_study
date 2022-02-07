@@ -1,21 +1,18 @@
-import React from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
-import styled from 'styled-components';
-import Card from './components/Card';
 import { arr } from './atoms';
 import { useRecoilState } from 'recoil';
 import Board from './components/Board';
 import Trash from './components/Trash';
+import { ITodoList } from './atoms';
 
 const mtStyle = { 
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'start',
-  marginTop: '100px'
- };
-
-
-
+  height: '300px',
+  width: '70vw',
+  margin: '100px auto'
+};
 
 function App() {
 
@@ -23,6 +20,25 @@ function App() {
 
   const handleOnDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if(!destination) return;
+
+    if(source.droppableId === 'window') {
+      setTodoList((oldTodos) => {
+        const newTodosKeies = Object.keys(oldTodos);
+        const target = newTodosKeies[source.index];
+        newTodosKeies.splice(source.index, 1);
+        newTodosKeies.splice(destination.index, 0, target);
+
+        const newTodos :ITodoList = {};
+        let keyName = '';
+        newTodosKeies.forEach((key, i) => {
+          keyName = newTodosKeies[i];
+          newTodos[keyName] = oldTodos[keyName];
+        });
+        return newTodos;
+      });
+      return;
+    }
+
     if(destination.droppableId === 'trash-box') {
       setTodoList((oldTodos) => {
         const copied = [...oldTodos[source.droppableId]];
@@ -56,17 +72,26 @@ function App() {
   return (
     <div className="App">
       <DragDropContext onDragEnd={ handleOnDragEnd }>
-        <div style={mtStyle}>
+        <Droppable droppableId='window' direction='horizontal'>
           {
-            Object.keys(todoList).map((list, index) => {
-              return (
-                <div key={ index }>
-                  <Board todos={todoList[list]} id={ list }/>
-                </div>
-              )
-            })
+            (provided) =>
+            <div style={mtStyle} 
+            ref={provided.innerRef} 
+            {...provided.droppableProps} 
+            >
+              {
+                Object.keys(todoList).map((list, index) => {
+                  return (
+                    <div key={ index }>
+                      <Board todos={todoList[list]} id={ list } index={ index }/>
+                    </div>
+                  )
+                })
+              }
+              { provided.placeholder }
+            </div>
           }
-        </div>
+        </Droppable>
         <Trash />
       </DragDropContext>
     </div>
