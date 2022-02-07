@@ -17,7 +17,7 @@ const TrashBox = styled.div`
 function Trash() {
     return (
         <>
-            <Droppable droppableId="trash-box">
+            <Droppable droppableId="trash-box" type={ 'active' }>
                 {
                     (provided) =>
                     <TrashBox ref={provided.innerRef} {...provided.droppableProps}>

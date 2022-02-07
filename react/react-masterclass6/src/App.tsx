@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import Board from './components/Board';
 import Trash from './components/Trash';
 import { ITodoList } from './atoms';
+import TodoCreator from './components/TodoCreator';
 
 const mtStyle = { 
   display: 'flex',
@@ -18,7 +19,7 @@ function App() {
 
   const [ todoList, setTodoList ] = useRecoilState(arr);
 
-  const handleOnDragEnd = ({ destination, source, draggableId }: DropResult) => {
+  const handleOnDragEnd = ({ destination, source }: DropResult) => {
     if(!destination) return;
 
     if(source.droppableId === 'window') {
@@ -71,6 +72,7 @@ function App() {
 
   return (
     <div className="App">
+      <TodoCreator />
       <DragDropContext onDragEnd={ handleOnDragEnd }>
         <Droppable droppableId='window' direction='horizontal'>
           {
