@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Nav = styled.div`
-    background-color: black;
+const Nav = styled(motion.div)`
     width: 100%;
     height: 100px;
     color: white;
+    position: fixed;
     display: flex;
 `;
 
@@ -73,6 +73,7 @@ const SearchInput = styled(motion.input)`
     color: white;
     transform-origin: right;
     transform: scaleX(0);
+    margin-right: 100px;
 `;
 
 const LogoVariants = {
@@ -109,9 +110,17 @@ function NavBar() {
         setSearchOpen(a => !a);
     };
 
+    const { scrollY } = useViewportScroll();
+    const [y, setY] = useState<number>(0);
+    scrollY.onChange(() => setY(scrollY.get()));
+
     return (
         <>
-            <Nav>
+            <Nav
+            animate={{
+                backgroundColor: y > 100 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 1)'
+            }}
+            >
                 <Col width={40}>
                     <Logo
                     variants={LogoVariants}
