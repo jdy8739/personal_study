@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const Nav = styled(motion.div)`
     width: 100%;
@@ -10,6 +10,8 @@ const Nav = styled(motion.div)`
     color: white;
     position: fixed;
     display: flex;
+    z-index: 100;
+    padding: 1px;
 `;
 
 const Col = styled.div<{ width?: number }>`
@@ -114,11 +116,24 @@ function NavBar() {
     const [y, setY] = useState<number>(0);
     scrollY.onChange(() => setY(scrollY.get()));
 
+    const nav = useNavigate();
+
+    const [searchWord, setSearchWord] = useState('');
+
+    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        nav(`/search?keyword=${ searchWord }`);
+    };
+
+    const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setSearchWord(e.currentTarget.value);
+    };
+
     return (
         <>
             <Nav
             animate={{
-                backgroundColor: y > 100 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 1)'
+                backgroundColor: y > 100 ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 1)'
             }}
             >
                 <Col width={40}>
@@ -161,12 +176,17 @@ function NavBar() {
                     animate={searchAnimation}
                     ></Search>
                     &ensp;
-                    <SearchInput placeholder="search movies or genres."
-                    initial={{
-                        scaleX: 0
-                    }}
-                    animate={inputAnimation}
-                    />
+                    <form onSubmit={handleSearch}>
+                        <SearchInput 
+                        placeholder="search movies or genres."
+                        value={searchWord}
+                        onChange={handleOnChange}
+                        initial={{
+                            scaleX: 0
+                        }}
+                        animate={inputAnimation}
+                        />
+                    </form>
                 </Col>
             </Nav>
         </>
