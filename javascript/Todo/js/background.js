@@ -14,7 +14,7 @@ const descriptions = [
     { 
         desc: 'Space is completely silent'
     }
-]
+];
 
 const images = [ 'bg1', 'bg2', 'bg3', 'bg4', 'bg5' ];
 
